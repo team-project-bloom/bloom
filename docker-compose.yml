@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  backend:
+    build: .
+    image: my-bloom
+    env_file: ./.env
+    ports:
+      - "8080:8080"
