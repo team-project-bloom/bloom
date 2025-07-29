@@ -1,4 +1,4 @@
-package team_project.bloom.model;
+package teamproject.bloom.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,14 +29,17 @@ public class Wine {
     @Column(nullable = false)
     private Integer alcohol;
     @Column(nullable = false)
-    private Variety variety;
+    private Type type;
     @Column(nullable = false)
     private Integer vintage;
+    private String img;
     private String grape;
     private String region;
     private String description;
+    @Column(nullable = false)
+    private Boolean isDeleted = false;
 
-    public enum Variety {
+    public enum Type {
         RED,
         WHITE,
         ROSE,

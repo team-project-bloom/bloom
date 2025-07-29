@@ -1,4 +1,4 @@
-package team_project.bloom.config;
+package teamproject.bloom.config;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import team_project.bloom.security.JwtAnonymousFilter;
+import teamproject.bloom.security.JwtAnonymousFilter;
 
 @Configuration
 @EnableMethodSecurity

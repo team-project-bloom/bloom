@@ -1,4 +1,4 @@
-package team_project.bloom.security;
+package teamproject.bloom.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -31,18 +31,18 @@ public class JwtAnonymousFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain) throws ServletException, IOException {
         String token = getToken(request);
-        String userId = null;
+        String username = null;
         if (token != null && jwtUtil.isValidToken(token)) {
-            userId = jwtUtil.getUserId(token);
+            username = jwtUtil.getUsername(token);
         }
         if (token == null) {
             String jwtToken = jwtUtil.generatedToken();
-            userId = jwtUtil.getUserId(jwtToken);
-           response.setHeader(HttpHeaders.AUTHORIZATION, jwtToken);
+            username = jwtUtil.getUsername(jwtToken);
+            response.setHeader(HttpHeaders.AUTHORIZATION, jwtToken);
         }
         Authentication authentication = new UsernamePasswordAuthenticationToken(
-                userId,
-                userId,
+                username,
+                null,
                 roles
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);

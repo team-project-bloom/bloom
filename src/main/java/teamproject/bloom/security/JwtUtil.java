@@ -1,4 +1,4 @@
-package team_project.bloom.security;
+package teamproject.bloom.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -39,7 +39,7 @@ public class JwtUtil {
         }
     }
 
-    public String getUserId(String token) {
+    public String getUsername(String token) {
         return getClaimFromToken(token, Claims::getSubject);
     }
 

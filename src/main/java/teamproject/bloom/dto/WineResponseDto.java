@@ -1,4 +1,4 @@
-package team_project.bloom.dto;
+package teamproject.bloom.dto;
 
 public record WineResponseDto(
         String title

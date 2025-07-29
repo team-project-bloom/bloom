@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-users_wines-table
+      author: Anton Star
+      changes:
+        - createTable:
+            tableName: users_wines
+            columns:
+              - column:
+                  name: user_id
+                  type: bigint
+              - column:
+                  name: wine_id
+                  type: bigint
+        - addForeignKeyConstraint:
+            baseTableName: users_wines
+            constraintName: fk_users_wines_user
+            referencedTableName: users
+            baseColumnNames: user_id
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            baseTableName: users_wines
+            constraintName: fk_users_wines_wine
+            referencedTableName: wines
+            baseColumnNames: wine_id
+            referencedColumnNames: id
