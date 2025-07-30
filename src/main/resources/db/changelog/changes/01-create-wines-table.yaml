@@ -25,7 +25,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: alcohol
-                  type: int
+                  type: FLOAT
                   constraints:
                     nullable: false
               - column:
@@ -42,8 +42,8 @@ databaseChangeLog:
                   name: img
                   type: varchar(2048)
               - column:
-                  name: grape
-                  type: varchar(255)
+                  name: grape_id
+                  type: bigint
               - column:
                   name: region
                   type: varchar(255)
@@ -56,3 +56,9 @@ databaseChangeLog:
                   defaultValueBoolean: false
                   constraints:
                     nullable: false
+              - addForeignKeyConstraint:
+                  baseTableName: wines
+                  constraintName: fk_wines_grape
+                  referencedTableName: grapes
+                  baseColumnNames: grape_id
+                  referencedColumnNames: id

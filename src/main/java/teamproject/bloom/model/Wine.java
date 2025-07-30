@@ -7,6 +7,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import lombok.Getter;
@@ -29,14 +31,16 @@ public class Wine {
     @Column(nullable = false)
     private BigDecimal price;
     @Column(nullable = false)
-    private Integer alcohol;
+    private Float alcohol;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Type type;
     @Column(nullable = false)
     private Integer vintage;
     private String img;
-    private String grape;
+    @ManyToOne
+    @JoinColumn(name = "grape_id")
+    private Grape grape;
     private String region;
     private String description;
     @Column(nullable = false)
