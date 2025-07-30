@@ -29,7 +29,12 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: type
+                  name: variety
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: value
                   type: varchar(255)
                   constraints:
                     nullable: false
@@ -49,7 +54,7 @@ databaseChangeLog:
                   type: bigint
               - column:
                   name: description
-                  type: varchar(2000)
+                  type: varchar(3000)
               - column:
                   name: is_deleted
                   type: bit

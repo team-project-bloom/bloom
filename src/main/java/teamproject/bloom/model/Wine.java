@@ -34,7 +34,10 @@ public class Wine {
     private Float alcohol;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private Type type;
+    private Variety variety;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Value value;
     @Column(nullable = false)
     private Integer vintage;
     private String img;
@@ -48,13 +51,21 @@ public class Wine {
     @Column(nullable = false)
     private Boolean isDeleted = false;
 
-    public enum Type {
+    public enum Variety {
         RED,
         WHITE,
         ROSE,
         ORANGE,
         NATURAL,
         PET_NAT,
-        SPARKLING
+        SPARKLING,
+        PROSECCO
+    }
+
+    public enum Value {
+        ORGANIC,
+        NON_ORGANIC,
+        NATURAL,
+        VEGAN
     }
 }
