@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-regions
+      author: Anton
+      changes:
+        - loadData:
+            file: db/data/regions.csv
+            separator: ","
+            tableName: regions
