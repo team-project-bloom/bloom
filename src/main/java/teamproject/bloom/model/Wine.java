@@ -41,7 +41,9 @@ public class Wine {
     @ManyToOne
     @JoinColumn(name = "grape_id")
     private Grape grape;
-    private String region;
+    @ManyToOne
+    @JoinColumn(name = "region_id")
+    private Region region;
     private String description;
     @Column(nullable = false)
     private Boolean isDeleted = false;

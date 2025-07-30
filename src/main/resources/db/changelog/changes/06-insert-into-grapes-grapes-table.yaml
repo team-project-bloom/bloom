@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-grapes
+      author: Anton
+      changes:
+        - loadData:
+            file: db/data/grapes.csv
+            separator: ","
+            tableName: grapes

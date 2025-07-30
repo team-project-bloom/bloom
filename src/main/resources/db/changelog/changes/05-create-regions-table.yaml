@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: 04-create-grapes-table
+      id: 04-create-regions-table
       author: Anton Star
       changes:
         - createTable:
-            tableName: grapes
+            tableName: regions
             columns:
               - column:
                   name: id

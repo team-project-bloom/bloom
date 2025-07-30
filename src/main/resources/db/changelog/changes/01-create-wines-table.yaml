@@ -45,8 +45,8 @@ databaseChangeLog:
                   name: grape_id
                   type: bigint
               - column:
-                  name: region
-                  type: varchar(255)
+                  name: region_id
+                  type: bigint
               - column:
                   name: description
                   type: varchar(2000)
@@ -61,4 +61,10 @@ databaseChangeLog:
                   constraintName: fk_wines_grape
                   referencedTableName: grapes
                   baseColumnNames: grape_id
+                  referencedColumnNames: id
+              - addForeignKeyConstraint:
+                  baseTableName: wines
+                  constraintName: fk_wines_region
+                  referencedTableName: regions
+                  baseColumnNames: region_id
                   referencedColumnNames: id
