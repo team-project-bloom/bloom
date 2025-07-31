@@ -77,6 +77,18 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         return shoppingCartMapper.toDto(cart);
     }
 
+    @Override
+    public void deleteCartItem(Long id, String userName) {
+        User user = getUserFromDb(userName);
+        ShoppingCart cart = shoppingCartRepository.findByUserId(user.getId());
+        CartItem cartItem = cart.getCartItems()
+                .stream()
+                .filter(item -> item.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new EntityNotFoundException("Can`t find CartItem by id " + id));
+        cart.getCartItems().remove(cartItem);
+    }
+
     private User getUserFromDb(String userName) {
         return userRepository.findByUserName(userName).orElseThrow(
                 () -> new EntityNotFoundException("Can`t find user by name " + userName)

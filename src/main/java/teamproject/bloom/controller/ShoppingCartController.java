@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,24 +30,33 @@ public class ShoppingCartController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    @Operation(summary = "Add item", description = "Add the item to shopping cart")
+    @Operation(summary = "Add CartItem", description = "Add the CartItem into shopping cart")
     public ShoppingCartResponseDto addItem(@RequestBody @Valid CartItemRequestDto addCartItemDto,
                                            Authentication authentication) {
         return shoppingCartService.addItem(addCartItemDto, getUserName(authentication));
     }
 
     @GetMapping
-    @Operation(summary = "Get all items",
-            description = "Get all items from shopping cart with Pageable")
+    @Operation(summary = "Get all CartItem",
+            description = "Get all CartItem from shopping cart with Pageable")
     public ShoppingCartResponseDto getAllItems(Authentication authentication, Pageable pageable) {
         return shoppingCartService.getAllImages(getUserName(authentication), pageable);
     }
 
     @PutMapping("/items/{itemId}")
+    @Operation(summary = "Update CartItem",
+            description = "Update the quantity CartItem into shopping cart")
     public ShoppingCartResponseDto updateCartItem(@RequestBody @Valid CartItemUpdateDto updateDto,
                                                   @PathVariable Long itemId,
                                                   Authentication authentication) {
         return shoppingCartService.updateCartItem(updateDto, itemId, getUserName(authentication));
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{itemId}")
+    @Operation(summary = "Delete CartItem", description = "Delete the CartItem into shopping cart")
+    public void deleteCartItem(@PathVariable Long itemId, Authentication authentication) {
+        shoppingCartService.deleteCartItem(itemId, getUserName(authentication));
     }
 
     private String getUserName(Authentication authentication) {
