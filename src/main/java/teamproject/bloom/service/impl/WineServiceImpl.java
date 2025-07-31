@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import teamproject.bloom.dto.wine.WineResponseDto;
-import teamproject.bloom.dto.wine.WineWithAllParamsDto;
+import teamproject.bloom.dto.wine.WineResponseWithAllParamsDto;
 import teamproject.bloom.exception.EntityNotFoundException;
 import teamproject.bloom.mapper.WineMapper;
 import teamproject.bloom.model.Wine;
@@ -24,7 +24,7 @@ public class WineServiceImpl implements WineService {
     }
 
     @Override
-    public WineWithAllParamsDto getWineById(Long id) {
+    public WineResponseWithAllParamsDto getWineById(Long id) {
         return wineMapper.toDtoWithAllParams(findWineById(id));
     }
 

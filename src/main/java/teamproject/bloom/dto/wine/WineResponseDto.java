@@ -10,6 +10,6 @@ public record WineResponseDto(
         Long regionId,
         Wine.Variety variety,
         Wine.Value value,
-        String img
+        String imgUrl
 ) {
 }

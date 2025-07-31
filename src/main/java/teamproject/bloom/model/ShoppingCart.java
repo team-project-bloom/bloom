@@ -30,4 +30,8 @@ public class ShoppingCart {
             orphanRemoval = true)
     private Set<CartItem> cartItems = new HashSet<>();
 
+    public void addItemToCart(CartItem cartItem) {
+        cartItem.setShoppingCart(this);
+        cartItems.add(cartItem);
+    }
 }

@@ -12,6 +12,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
@@ -22,6 +23,7 @@ import org.hibernate.annotations.SQLRestriction;
 @Table(name = "wines")
 @SQLDelete(sql = "UPDATE wines SET is_deleted = true WHERE id=?")
 @SQLRestriction("is_deleted=false")
+@NoArgsConstructor
 public class Wine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +42,7 @@ public class Wine {
     private Value value;
     @Column(nullable = false)
     private Integer vintage;
-    private String img;
+    private String imgUrl;
     @ManyToOne
     @JoinColumn(name = "grape_id")
     private Grape grape;
@@ -50,6 +52,10 @@ public class Wine {
     private String description;
     @Column(nullable = false)
     private Boolean isDeleted = false;
+
+    public Wine(Long id) {
+        this.id = id;
+    }
 
     public enum Variety {
         RED,

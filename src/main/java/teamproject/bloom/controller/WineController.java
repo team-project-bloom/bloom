@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import teamproject.bloom.dto.wine.WineResponseDto;
-import teamproject.bloom.dto.wine.WineWithAllParamsDto;
+import teamproject.bloom.dto.wine.WineResponseWithAllParamsDto;
 import teamproject.bloom.service.WineService;
 
 @Tag(name = "Wines", description = "Endpoints for wine management")
@@ -28,7 +28,7 @@ public class WineController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Get a wine", description = "Get a wine by id")
-    public WineWithAllParamsDto getById(@PathVariable Long id) {
+    public WineResponseWithAllParamsDto getById(@PathVariable Long id) {
         return wineService.getWineById(id);
     }
 }

@@ -3,7 +3,7 @@ package teamproject.bloom.dto.wine;
 import java.math.BigDecimal;
 import teamproject.bloom.model.Wine;
 
-public record WineWithAllParamsDto(
+public record WineResponseWithAllParamsDto(
         Long id,
         String title,
         BigDecimal price,
@@ -11,7 +11,7 @@ public record WineWithAllParamsDto(
         Wine.Variety variety,
         Wine.Value value,
         Integer vintage,
-        String img,
+        String imgUrl,
         Long grapeId,
         Long regionId,
         String description

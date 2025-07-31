@@ -44,7 +44,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: img
+                  name: img_url
                   type: varchar(2048)
               - column:
                   name: grape_id
