@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import teamproject.bloom.dto.cartitem.CartItemRequestDto;
+import teamproject.bloom.dto.cartitem.CartItemUpdateDto;
 import teamproject.bloom.dto.shoppingcart.ShoppingCartResponseDto;
 import teamproject.bloom.exception.EntityNotFoundException;
 import teamproject.bloom.mapper.CartItemMapper;
@@ -55,6 +56,24 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public ShoppingCartResponseDto getAllImages(String userName, Pageable pageable) {
         User user = getUserFromDb(userName);
         ShoppingCart cart = shoppingCartRepository.findByUserId(user.getId());
+        return shoppingCartMapper.toDto(cart);
+    }
+
+    @Override
+    public ShoppingCartResponseDto updateCartItem(CartItemUpdateDto updateDto,
+                                                  Long itemId, String userName) {
+        User user = getUserFromDb(userName);
+        ShoppingCart cart = shoppingCartRepository.findByUserId(user.getId());
+        CartItem cartItem = cartItemRepository.findByIdAndShoppingCartId(itemId, cart.getId())
+                .map(item -> {
+                    item.setQuantity(updateDto.quantity());
+                    return item;
+                }).orElseThrow(
+                        () -> new EntityNotFoundException(
+                                String.format(
+                                        "Can`t find CartItem by id %s and ShoppingCart id %s",
+                                        itemId, cart.getId())));
+        cartItemRepository.save(cartItem);
         return shoppingCartMapper.toDto(cart);
     }
 

@@ -8,13 +8,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import teamproject.bloom.dto.cartitem.CartItemDto;
 import teamproject.bloom.dto.cartitem.CartItemRequestDto;
 import teamproject.bloom.dto.cartitem.CartItemUpdateDto;
 import teamproject.bloom.dto.shoppingcart.ShoppingCartResponseDto;
@@ -43,9 +43,10 @@ public class ShoppingCartController {
     }
 
     @PutMapping("/items/{itemId}")
-    public CartItemDto updateCartItem(@RequestBody @Valid CartItemUpdateDto updateDto,
-                                      Authentication authentication) {
-        return null;
+    public ShoppingCartResponseDto updateCartItem(@RequestBody @Valid CartItemUpdateDto updateDto,
+                                                  @PathVariable Long itemId,
+                                                  Authentication authentication) {
+        return shoppingCartService.updateCartItem(updateDto, itemId, getUserName(authentication));
     }
 
     private String getUserName(Authentication authentication) {
