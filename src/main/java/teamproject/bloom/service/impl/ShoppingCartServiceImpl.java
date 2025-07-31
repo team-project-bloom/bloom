@@ -2,10 +2,13 @@ package teamproject.bloom.service.impl;
 
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import teamproject.bloom.dto.cartitem.CartItemDto;
 import teamproject.bloom.dto.cartitem.CartItemRequestDto;
-import teamproject.bloom.dto.shoppingcart.ShoppingCartDto;
+import teamproject.bloom.dto.shoppingcart.ShoppingCartResponseDto;
 import teamproject.bloom.exception.EntityNotFoundException;
 import teamproject.bloom.mapper.CartItemMapper;
 import teamproject.bloom.mapper.ShoppingCartMapper;
@@ -13,6 +16,7 @@ import teamproject.bloom.model.CartItem;
 import teamproject.bloom.model.ShoppingCart;
 import teamproject.bloom.model.User;
 import teamproject.bloom.model.Wine;
+import teamproject.bloom.repository.CartItemRepository;
 import teamproject.bloom.repository.ShoppingCartRepository;
 import teamproject.bloom.repository.UserRepository;
 import teamproject.bloom.repository.WineRepository;
@@ -29,9 +33,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     private final ShoppingCartRepository shoppingCartRepository;
     private final ShoppingCartMapper shoppingCartMapper;
     private final CartItemMapper cartItemMapper;
+    private final CartItemRepository cartItemRepository;
 
     @Override
-    public ShoppingCartDto addItem(CartItemRequestDto cartItemDto, String userName) {
+    public ShoppingCartResponseDto addItem(CartItemRequestDto cartItemDto, String userName) {
         Optional<User> userFronDb = userRepository.findByUserName(userName);
         User user = userFronDb.orElseGet(() -> userService.saveUser(userName));
         Wine wine = wineRepository.findById(cartItemDto.wineId()).orElseThrow(
@@ -43,9 +48,22 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 .filter(item -> item.getWine().getId().equals(cartItemDto.wineId()))
                 .findFirst()
                 .ifPresentOrElse(item -> item.setQuantity(item.getQuantity()
-                        + cartItemDto.quantity()),
+                                + cartItemDto.quantity()),
                         () -> addCartItemToCart(cartItemDto, wine, cart));
         return shoppingCartMapper.toDto(shoppingCartRepository.save(cart));
+    }
+
+    @Override
+    public Page<CartItemDto> getAllImages(String userName, Pageable pageable) {
+        User user = getUserFromDb(userName);
+        return cartItemRepository.findAllByShoppingCartId(user.getId(), pageable)
+                .map(cartItemMapper::toDto);
+    }
+
+    private User getUserFromDb(String userName) {
+        return userRepository.findByUserName(userName).orElseThrow(
+                () -> new EntityNotFoundException("Can`t find user by name " + userName)
+        );
     }
 
     private void addCartItemToCart(
