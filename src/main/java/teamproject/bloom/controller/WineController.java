@@ -13,7 +13,7 @@ import teamproject.bloom.dto.wine.WineResponseDto;
 import teamproject.bloom.dto.wine.WineResponseWithAllParamsDto;
 import teamproject.bloom.service.WineService;
 
-@Tag(name = "Wines", description = "Endpoints for wine management")
+@Tag(name = "Wine", description = "Endpoints for wine management")
 @RestController
 @RequestMapping("/wines")
 @RequiredArgsConstructor
@@ -26,9 +26,9 @@ public class WineController {
         return wineService.getAll(pageable);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{wineId}")
     @Operation(summary = "Get a wine", description = "Get a wine by id")
-    public WineResponseWithAllParamsDto getById(@PathVariable Long id) {
-        return wineService.getWineById(id);
+    public WineResponseWithAllParamsDto getById(@PathVariable Long wineId) {
+        return wineService.getWineById(wineId);
     }
 }
