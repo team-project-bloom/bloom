@@ -4,18 +4,19 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import teamproject.bloom.dto.cartitem.CartItemDto;
 import teamproject.bloom.dto.cartitem.CartItemRequestDto;
+import teamproject.bloom.dto.cartitem.CartItemUpdateDto;
 import teamproject.bloom.dto.shoppingcart.ShoppingCartResponseDto;
 import teamproject.bloom.service.ShoppingCartService;
 
@@ -37,8 +38,14 @@ public class ShoppingCartController {
     @GetMapping
     @Operation(summary = "Get all items",
             description = "Get all items from shopping cart with Pageable")
-    public Page<CartItemDto> getAllItems(Authentication authentication, Pageable pageable) {
+    public ShoppingCartResponseDto getAllItems(Authentication authentication, Pageable pageable) {
         return shoppingCartService.getAllImages(getUserName(authentication), pageable);
+    }
+
+    @PutMapping("/items/{itemId}")
+    public CartItemDto updateCartItem(@RequestBody @Valid CartItemUpdateDto updateDto,
+                                      Authentication authentication) {
+        return null;
     }
 
     private String getUserName(Authentication authentication) {

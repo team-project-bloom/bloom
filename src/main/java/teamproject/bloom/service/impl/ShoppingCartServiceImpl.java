@@ -2,11 +2,9 @@ package teamproject.bloom.service.impl;
 
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import teamproject.bloom.dto.cartitem.CartItemDto;
 import teamproject.bloom.dto.cartitem.CartItemRequestDto;
 import teamproject.bloom.dto.shoppingcart.ShoppingCartResponseDto;
 import teamproject.bloom.exception.EntityNotFoundException;
@@ -54,10 +52,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public Page<CartItemDto> getAllImages(String userName, Pageable pageable) {
+    public ShoppingCartResponseDto getAllImages(String userName, Pageable pageable) {
         User user = getUserFromDb(userName);
-        return cartItemRepository.findAllByShoppingCartId(user.getId(), pageable)
-                .map(cartItemMapper::toDto);
+        ShoppingCart cart = shoppingCartRepository.findByUserId(user.getId());
+        return shoppingCartMapper.toDto(cart);
     }
 
     private User getUserFromDb(String userName) {
