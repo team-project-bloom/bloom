@@ -1,0 +1,42 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-cart_items-table
+      author: Anton Star
+      changes:
+        - createTable:
+            tableName: cart_items
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: shopping_cart_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: wine_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity
+                  type: int
+                  constraints:
+                    nullable: false
+              - addForeignKeyConstraint:
+                  baseTableName: cart_items
+                  constraintName: fk_cart_items_shopping_cart
+                  referencedTableName: shopping_carts
+                  baseColumnNames: shopping_cart_id
+                  referencedColumnNames: id
+              - addForeignKeyConstraint:
+                  baseTableName: cart_items
+                  constraintName: fk_cart_items_wine
+                  referencedTableName: wines
+                  baseColumnNames: wine_id
+                  referencedColumnNames: id

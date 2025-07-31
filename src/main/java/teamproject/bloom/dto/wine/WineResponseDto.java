@@ -1,4 +1,4 @@
-package teamproject.bloom.dto;
+package teamproject.bloom.dto.wine;
 
 import java.math.BigDecimal;
 import teamproject.bloom.model.Wine;
