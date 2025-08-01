@@ -18,7 +18,7 @@ import teamproject.bloom.model.Wine;
 import teamproject.bloom.repository.CartItemRepository;
 import teamproject.bloom.repository.ShoppingCartRepository;
 import teamproject.bloom.repository.UserRepository;
-import teamproject.bloom.repository.WineRepository;
+import teamproject.bloom.repository.wine.WineRepository;
 import teamproject.bloom.service.ShoppingCartService;
 import teamproject.bloom.service.UserService;
 

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import teamproject.bloom.dto.wine.WineResponseDto;
 import teamproject.bloom.dto.wine.WineResponseWithAllParamsDto;
+import teamproject.bloom.dto.wine.WineSearchParametersDto;
 import teamproject.bloom.service.WineService;
 
 @Tag(name = "Wine", description = "Endpoints for wine management")
@@ -30,5 +31,11 @@ public class WineController {
     @Operation(summary = "Get a wine", description = "Get a wine by id")
     public WineResponseWithAllParamsDto getById(@PathVariable Long wineId) {
         return wineService.getWineById(wineId);
+    }
+
+    @GetMapping("/search")
+    @Operation(summary = "Search wines. Isn`t working", description = "Search wines by params")
+    public Page<WineResponseDto> search(WineSearchParametersDto wineSearchDto) {
+        return null;
     }
 }

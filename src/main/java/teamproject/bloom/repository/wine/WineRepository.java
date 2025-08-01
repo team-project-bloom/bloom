@@ -1,4 +1,4 @@
-package teamproject.bloom.repository;
+package teamproject.bloom.repository.wine;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

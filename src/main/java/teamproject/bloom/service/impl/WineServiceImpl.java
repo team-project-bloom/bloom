@@ -6,10 +6,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import teamproject.bloom.dto.wine.WineResponseDto;
 import teamproject.bloom.dto.wine.WineResponseWithAllParamsDto;
+import teamproject.bloom.dto.wine.WineSearchParametersDto;
 import teamproject.bloom.exception.EntityNotFoundException;
 import teamproject.bloom.mapper.WineMapper;
 import teamproject.bloom.model.Wine;
-import teamproject.bloom.repository.WineRepository;
+import teamproject.bloom.repository.wine.WineRepository;
 import teamproject.bloom.service.WineService;
 
 @Service
@@ -26,6 +27,11 @@ public class WineServiceImpl implements WineService {
     @Override
     public WineResponseWithAllParamsDto getWineById(Long id) {
         return wineMapper.toDtoWithAllParams(findWineById(id));
+    }
+
+    @Override
+    public Page<WineResponseDto> search(WineSearchParametersDto wineSearchDto) {
+        return null;
     }
 
     private Wine findWineById(Long id) {
