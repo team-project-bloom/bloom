@@ -11,5 +11,5 @@ public interface WineService {
 
     WineResponseWithAllParamsDto getWineById(Long id);
 
-    Page<WineResponseDto> search(WineSearchParametersDto wineSearchDto);
+    Page<WineResponseDto> search(WineSearchParametersDto wineSearchDto, Pageable pageable);
 }

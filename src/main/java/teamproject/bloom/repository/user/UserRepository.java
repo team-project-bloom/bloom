@@ -1,4 +1,4 @@
-package teamproject.bloom.repository;
+package teamproject.bloom.repository.user;
 
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;

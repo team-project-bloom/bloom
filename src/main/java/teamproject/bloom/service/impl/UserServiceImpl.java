@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import teamproject.bloom.model.ShoppingCart;
 import teamproject.bloom.model.User;
-import teamproject.bloom.repository.ShoppingCartRepository;
-import teamproject.bloom.repository.UserRepository;
+import teamproject.bloom.repository.shoppingcart.ShoppingCartRepository;
+import teamproject.bloom.repository.user.UserRepository;
 import teamproject.bloom.service.UserService;
 
 @Service

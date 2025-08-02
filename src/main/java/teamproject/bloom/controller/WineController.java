@@ -35,7 +35,7 @@ public class WineController {
 
     @GetMapping("/search")
     @Operation(summary = "Search wines. Isn`t working", description = "Search wines by params")
-    public Page<WineResponseDto> search(WineSearchParametersDto wineSearchDto) {
-        return null;
+    public Page<WineResponseDto> search(WineSearchParametersDto wineSearchDto, Pageable pageable) {
+        return wineService.search(wineSearchDto, pageable);
     }
 }

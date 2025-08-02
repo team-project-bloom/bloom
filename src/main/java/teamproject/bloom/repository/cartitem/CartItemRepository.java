@@ -1,4 +1,4 @@
-package teamproject.bloom.repository;
+package teamproject.bloom.repository.cartitem;
 
 import java.util.Optional;
 import org.springframework.data.domain.Page;
