@@ -8,6 +8,7 @@ import teamproject.bloom.model.Wine;
 import teamproject.bloom.repository.SpecificationBuilder;
 import teamproject.bloom.repository.SpecificationProviderManager;
 import teamproject.bloom.repository.wine.spec.AlcoholSpecificationProvider;
+import teamproject.bloom.repository.wine.spec.GrapeSpecificationProvider;
 import teamproject.bloom.repository.wine.spec.PriceSpecificationProvider;
 import teamproject.bloom.repository.wine.spec.TitleSpecificationProvider;
 import teamproject.bloom.repository.wine.spec.ValueSpecificationProvider;
@@ -53,6 +54,11 @@ public class WineSpecificationBuilder implements SpecificationBuilder<Wine> {
             spec = spec.and(wineSpecificationProviderManager
                     .getSpecificationProvider(ValueSpecificationProvider.VALUE)
                     .getSpecification(params.value()));
+        }
+        if (params.grape() != null && params.grape().length > 0) {
+            spec = spec.and(wineSpecificationProviderManager
+                    .getSpecificationProvider(GrapeSpecificationProvider.GRAPE)
+                    .getSpecification(params.grape()));
         }
         return spec;
     }
