@@ -7,7 +7,8 @@ import teamproject.bloom.model.Wine;
 
 public record WineSearchParametersDto(
         String[] title,
-        BigDecimal[] price,
+        BigDecimal priceFrom,
+        BigDecimal priceTo,
         Float[] alcohol,
         Wine.Variety[] variety,
         Wine.Value[] value,

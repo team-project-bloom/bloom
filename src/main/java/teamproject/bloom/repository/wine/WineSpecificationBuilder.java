@@ -7,6 +7,7 @@ import teamproject.bloom.dto.wine.WineSearchParametersDto;
 import teamproject.bloom.model.Wine;
 import teamproject.bloom.repository.SpecificationBuilder;
 import teamproject.bloom.repository.SpecificationProviderManager;
+import teamproject.bloom.repository.wine.spec.PriceSpecificationProvider;
 import teamproject.bloom.repository.wine.spec.TitleSpecificationProvider;
 
 @Component
@@ -21,6 +22,12 @@ public class WineSpecificationBuilder implements SpecificationBuilder<Wine> {
             spec = spec.and(wineSpecificationProviderManager
                     .getSpecificationProvider(TitleSpecificationProvider.TITLE)
                     .getSpecification(searchParameters.title()));
+        }
+        if (searchParameters.priceFrom() != null || searchParameters.priceTo() != null) {
+            spec = spec.and(wineSpecificationProviderManager
+                    .getSpecificationProvider(PriceSpecificationProvider.PRICE)
+                    .getSpecification(new Object[]{searchParameters.priceFrom(),
+                            searchParameters.priceTo()}));
         }
         return spec;
     }
