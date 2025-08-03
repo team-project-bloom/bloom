@@ -4,6 +4,7 @@ import java.util.Arrays;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
+import teamproject.bloom.exception.EntityNotFoundException;
 import teamproject.bloom.model.Wine;
 import teamproject.bloom.repository.SpecificationProvider;
 import teamproject.bloom.repository.grape.GrapeRepository;
@@ -22,7 +23,9 @@ public class GrapeSpecificationProvider implements SpecificationProvider<Wine> {
     @Override
     public Specification<Wine> getSpecification(Object[] params) {
         Object[] grapes = Arrays.stream(params)
-                .map(name -> grapeRepository.findByName(name.toString()))
+                .map(name -> grapeRepository.findByNameIgnoreCase(String.valueOf(name))
+                        .orElseThrow(() -> new EntityNotFoundException(
+                                "Can`t find Grape by name " + name)))
                 .toArray();
         return (root, query, criteriaBuilder) ->
                 root.get(GRAPE).in(Arrays.asList(grapes));
