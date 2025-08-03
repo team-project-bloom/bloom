@@ -10,6 +10,7 @@ import teamproject.bloom.repository.SpecificationProviderManager;
 import teamproject.bloom.repository.wine.spec.AlcoholSpecificationProvider;
 import teamproject.bloom.repository.wine.spec.PriceSpecificationProvider;
 import teamproject.bloom.repository.wine.spec.TitleSpecificationProvider;
+import teamproject.bloom.repository.wine.spec.VarietySpecificationProvider;
 
 @Component
 @RequiredArgsConstructor
@@ -34,6 +35,11 @@ public class WineSpecificationBuilder implements SpecificationBuilder<Wine> {
             spec = spec.and(wineSpecificationProviderManager
                     .getSpecificationProvider(AlcoholSpecificationProvider.ALCOHOL)
                     .getSpecification(params.alcohol()));
+        }
+        if (params.variety() != null && params.variety().length > 0) {
+            spec = spec.and(wineSpecificationProviderManager
+                    .getSpecificationProvider(VarietySpecificationProvider.VARIETY)
+                    .getSpecification(params.variety()));
         }
         return spec;
     }
