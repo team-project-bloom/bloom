@@ -12,7 +12,8 @@ public record WineSearchParametersDto(
         Float[] alcohol,
         Wine.Variety[] variety,
         Wine.Value[] value,
-        Integer[] vintage,
+        Integer vintageFrom,
+        Integer vintageTo,
         Grape[] grape,
         Region[] region
 ) {

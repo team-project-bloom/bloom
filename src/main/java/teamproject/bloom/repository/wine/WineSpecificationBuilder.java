@@ -10,7 +10,9 @@ import teamproject.bloom.repository.SpecificationProviderManager;
 import teamproject.bloom.repository.wine.spec.AlcoholSpecificationProvider;
 import teamproject.bloom.repository.wine.spec.PriceSpecificationProvider;
 import teamproject.bloom.repository.wine.spec.TitleSpecificationProvider;
+import teamproject.bloom.repository.wine.spec.ValueSpecificationProvider;
 import teamproject.bloom.repository.wine.spec.VarietySpecificationProvider;
+import teamproject.bloom.repository.wine.spec.VintageSpecificationProvider;
 
 @Component
 @RequiredArgsConstructor
@@ -31,6 +33,12 @@ public class WineSpecificationBuilder implements SpecificationBuilder<Wine> {
                     .getSpecification(new Object[]{params.priceFrom(),
                             params.priceTo()}));
         }
+        if (params.vintageFrom() != null || params.vintageTo() != null) {
+            spec = spec.and(wineSpecificationProviderManager
+                    .getSpecificationProvider(VintageSpecificationProvider.VINTAGE)
+                    .getSpecification(new Object[]{params.vintageFrom(),
+                            params.vintageTo()}));
+        }
         if (params.alcohol() != null && params.alcohol().length > 0) {
             spec = spec.and(wineSpecificationProviderManager
                     .getSpecificationProvider(AlcoholSpecificationProvider.ALCOHOL)
@@ -40,6 +48,11 @@ public class WineSpecificationBuilder implements SpecificationBuilder<Wine> {
             spec = spec.and(wineSpecificationProviderManager
                     .getSpecificationProvider(VarietySpecificationProvider.VARIETY)
                     .getSpecification(params.variety()));
+        }
+        if (params.value() != null && params.value().length > 0) {
+            spec = spec.and(wineSpecificationProviderManager
+                    .getSpecificationProvider(ValueSpecificationProvider.VALUE)
+                    .getSpecification(params.value()));
         }
         return spec;
     }
