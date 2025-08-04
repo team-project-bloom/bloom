@@ -15,5 +15,7 @@ public interface CartItemMapper {
     @Mapping(target = "wineId", source = "wine.id")
     @Mapping(target = "variety", source = "wine.variety")
     @Mapping(target = "price", source = "wine.price")
+    @Mapping(target = "title", source = "wine.title")
+    @Mapping(target = "imgUrl", source = "wine.imgUrl")
     CartItemDto toDto(CartItem cartItem);
 }
