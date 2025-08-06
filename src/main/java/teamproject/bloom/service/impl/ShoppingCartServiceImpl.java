@@ -1,6 +1,5 @@
 package teamproject.bloom.service.impl;
 
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,14 +19,12 @@ import teamproject.bloom.repository.shoppingcart.ShoppingCartRepository;
 import teamproject.bloom.repository.user.UserRepository;
 import teamproject.bloom.repository.wine.WineRepository;
 import teamproject.bloom.service.ShoppingCartService;
-import teamproject.bloom.service.UserService;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class ShoppingCartServiceImpl implements ShoppingCartService {
     private final UserRepository userRepository;
-    private final UserService userService;
     private final WineRepository wineRepository;
     private final ShoppingCartRepository shoppingCartRepository;
     private final ShoppingCartMapper shoppingCartMapper;
@@ -36,8 +33,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public ShoppingCartResponseDto addItem(CartItemRequestDto cartItemDto, String userName) {
-        Optional<User> userFronDb = userRepository.findByUserName(userName);
-        User user = userFronDb.orElseGet(() -> userService.saveUser(userName));
+        User user = getUserByName(userName);
         Wine wine = wineRepository.findById(cartItemDto.wineId()).orElseThrow(
                 () -> new EntityNotFoundException("Can`t find wine by id "
                         + cartItemDto.wineId())
@@ -54,7 +50,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public ShoppingCartResponseDto getAllImages(String userName, Pageable pageable) {
-        User user = getUserFromDb(userName);
+        User user = getUserByName(userName);
         ShoppingCart cart = shoppingCartRepository.findByUserId(user.getId());
         return shoppingCartMapper.toDto(cart);
     }
@@ -62,7 +58,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public ShoppingCartResponseDto updateCartItem(CartItemUpdateDto updateDto,
                                                   Long itemId, String userName) {
-        User user = getUserFromDb(userName);
+        User user = getUserByName(userName);
         ShoppingCart cart = shoppingCartRepository.findByUserId(user.getId());
         CartItem cartItem = cartItemRepository.findByIdAndShoppingCartId(itemId, cart.getId())
                 .map(item -> {
@@ -79,7 +75,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public void deleteCartItem(Long id, String userName) {
-        User user = getUserFromDb(userName);
+        User user = getUserByName(userName);
         ShoppingCart cart = shoppingCartRepository.findByUserId(user.getId());
         CartItem cartItem = cart.getCartItems()
                 .stream()
@@ -89,7 +85,14 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         cart.getCartItems().remove(cartItem);
     }
 
-    private User getUserFromDb(String userName) {
+    @Override
+    public void createShoppingCart(User user) {
+        ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.setUser(user);
+        shoppingCartRepository.save(shoppingCart);
+    }
+
+    private User getUserByName(String userName) {
         return userRepository.findByUserName(userName).orElseThrow(
                 () -> new EntityNotFoundException("Can`t find user by name " + userName)
         );

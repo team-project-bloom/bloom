@@ -1,31 +1,55 @@
 package teamproject.bloom.service.impl;
 
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-import teamproject.bloom.model.ShoppingCart;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+import teamproject.bloom.dto.user.UserLoginResponseDto;
+import teamproject.bloom.mapper.UserMapper;
 import teamproject.bloom.model.User;
-import teamproject.bloom.repository.shoppingcart.ShoppingCartRepository;
 import teamproject.bloom.repository.user.UserRepository;
+import teamproject.bloom.security.JwtUtil;
+import teamproject.bloom.service.ShoppingCartService;
 import teamproject.bloom.service.UserService;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class UserServiceImpl implements UserService {
+    public static final String BEARER = "Bearer ";
     private final UserRepository userRepository;
-    private final ShoppingCartRepository shoppingCartRepository;
+    private final UserMapper userMapper;
+    private final ShoppingCartService shoppingCartService;
+    private final JwtUtil jwtUtil;
 
     @Override
-    public User saveUser(String userName) {
-        User user = new User();
-        user.setUserName(userName);
+    public UserLoginResponseDto register(String userName, String bearerToken) {
+        if (userRepository.existsByUserName(userName)) {
+            return userMapper.toResponseDto(getToken(bearerToken));
+        }
+        userName = UUID.randomUUID().toString();
+        User user = userMapper.createUser(userName);
         user = userRepository.save(user);
-        createShoppingCart(user);
-        return user;
+        shoppingCartService.createShoppingCart(user);
+        String token = jwtUtil.generatedToken(userName);
+        return userMapper.toResponseDto(token);
     }
 
-    private void createShoppingCart(User user) {
-        ShoppingCart shoppingCart = new ShoppingCart();
-        shoppingCart.setUser(user);
-        shoppingCartRepository.save(shoppingCart);
+    @Override
+    public String getUserName(Authentication authentication) {
+        if (authentication != null) {
+            return (String) authentication.getPrincipal();
+        }
+        return null;
+    }
+
+    @Override
+    public String getToken(String bearerToken) {
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER)) {
+            return bearerToken.substring(BEARER.length());
+        }
+        return null;
     }
 }

@@ -1,7 +1,12 @@
 package teamproject.bloom.service;
 
-import teamproject.bloom.model.User;
+import org.springframework.security.core.Authentication;
+import teamproject.bloom.dto.user.UserLoginResponseDto;
 
 public interface UserService {
-    User saveUser(String userName);
+    UserLoginResponseDto register(String userName, String authHeader);
+
+    String getUserName(Authentication authentication);
+
+    String getToken(String bearerToken);
 }
