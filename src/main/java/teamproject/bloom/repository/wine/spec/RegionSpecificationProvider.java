@@ -1,19 +1,18 @@
 package teamproject.bloom.repository.wine.spec;
 
+import jakarta.persistence.criteria.Expression;
 import java.util.Arrays;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
-import teamproject.bloom.exception.EntityNotFoundException;
 import teamproject.bloom.model.Wine;
 import teamproject.bloom.repository.SpecificationProvider;
-import teamproject.bloom.repository.region.RegionRepository;
 
 @Component
 @RequiredArgsConstructor
 public class RegionSpecificationProvider implements SpecificationProvider<Wine> {
     public static final String REGION = "region";
-    private final RegionRepository regionRepository;
 
     @Override
     public String getKey() {
@@ -22,12 +21,15 @@ public class RegionSpecificationProvider implements SpecificationProvider<Wine> 
 
     @Override
     public Specification<Wine> getSpecification(Object[] params) {
-        Object[] regions = Arrays.stream(params)
-                .map(name -> regionRepository.findByNameIgnoreCase(String.valueOf(name))
-                        .orElseThrow(() -> new EntityNotFoundException(
-                                "Can`t find region by name " + name)))
-                .toArray();
+        List<String> regions = Arrays.stream(params)
+                .map(String::valueOf)
+                .map(String::toLowerCase)
+                .toList();
         return (root, query, criteriaBuilder)
-                -> root.get(REGION).in(Arrays.asList(regions));
+                -> {
+            Expression<String> regionExpression = criteriaBuilder
+                    .lower(root.get(REGION).get("name"));
+            return regionExpression.in(regions);
+        };
     }
 }

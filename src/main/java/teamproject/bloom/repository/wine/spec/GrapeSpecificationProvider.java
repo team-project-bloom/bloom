@@ -1,19 +1,18 @@
 package teamproject.bloom.repository.wine.spec;
 
+import jakarta.persistence.criteria.Expression;
 import java.util.Arrays;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
-import teamproject.bloom.exception.EntityNotFoundException;
 import teamproject.bloom.model.Wine;
 import teamproject.bloom.repository.SpecificationProvider;
-import teamproject.bloom.repository.grape.GrapeRepository;
 
 @Component
 @RequiredArgsConstructor
 public class GrapeSpecificationProvider implements SpecificationProvider<Wine> {
     public static final String GRAPE = "grape";
-    private final GrapeRepository grapeRepository;
 
     @Override
     public String getKey() {
@@ -22,12 +21,14 @@ public class GrapeSpecificationProvider implements SpecificationProvider<Wine> {
 
     @Override
     public Specification<Wine> getSpecification(Object[] params) {
-        Object[] grapes = Arrays.stream(params)
-                .map(name -> grapeRepository.findByNameIgnoreCase(String.valueOf(name))
-                        .orElseThrow(() -> new EntityNotFoundException(
-                                "Can`t find Grape by name " + name)))
-                .toArray();
-        return (root, query, criteriaBuilder) ->
-                root.get(GRAPE).in(Arrays.asList(grapes));
+        List<String> grapes = Arrays.stream(params)
+                .map(String::valueOf)
+                .map(String::toLowerCase)
+                .toList();
+        return (root, query, criteriaBuilder) -> {
+            Expression<String> grapeExpression = criteriaBuilder
+                    .lower(root.get(GRAPE).get("name"));
+            return grapeExpression.in(grapes);
+        };
     }
 }
