@@ -1,15 +1,21 @@
-### How to Launch a Spring Boot Application in Docker
+### How to Launch a Spring Boot Application with Maven or Docker Compose
 
 Before running the application, ensure the following tools are installed and available:
+
+- Java (17 or compatible)
+```
+java -version
+```
 
 - Maven (3.8+ recommended)
 ```
 mvn -version
 ```
 
-- Docker
+- Docker & Docker Compose
 ```
 docker --version
+docker compose version
 ```
 Open the Terminal
 - Open a terminal or command prompt on your computer
@@ -28,33 +34,35 @@ Before running the project, create .env a file in the root directory with the re
 
 *Example:*
 ```
-JWT_SECRET=your_data //1q2w3e4r5t6y7u8i9o0pqawsedrftgyhujikolpazsxdcfvgbhnjmklqwertyuiop
+
+JWT_SECRET=your_data 
+MYSQLDB_USER=your_data
+MYSQLDB_ROOT_PASSWORD=your_data
+MYSQLDB_DATABASE=your_data
+MYSQLDB_LOCAL_PORT=your_data
+MYSQLDB_DOCKER_PORT=your_data
+SPRING_LOCAL_PORT=your_data
+SPRING_DOCKER_PORT=your_data
+DEBUG_PORT=your_data
 ```
+
+Run the Application Using Maven
+- Use the following command to launch the Spring Boot application:
+```
+mvn spring-boot:run
+```
+
+**Or Use Docker Compose to run app**
 
 - Create .jar file
 ```
 mvn clean package
 ```
 
-#### Run the app with Docker
-
-- Create Docker image
-```
-docker build -t my-bloom .
-```
-
-- Run docker container
-```
- docker run --env-file .env -p 8080:8080 my-bloom
-```
-
-**Or Use Docker Compose to run app**
-
 - Run the app with Docker Compose
 ```
 docker compose up --build
 ```
-
 
 Verify the Application is Running
 - If successful, you will see logs ending with something like:
