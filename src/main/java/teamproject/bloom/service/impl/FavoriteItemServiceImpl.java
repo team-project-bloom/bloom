@@ -2,6 +2,8 @@ package teamproject.bloom.service.impl;
 
 import jakarta.persistence.EntityExistsException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import teamproject.bloom.dto.favoriteitem.FavoriteItemResponseDto;
 import teamproject.bloom.dto.favoriteitem.FavoriteWineRequestDto;
@@ -39,6 +41,13 @@ public class FavoriteItemServiceImpl implements FavoriteItemService {
                     );
                 });
         return favoriteItemMapper.toResponseDto(favoriteItemRepository.save(favoriteItem));
+    }
+
+    @Override
+    public Page<FavoriteItemResponseDto> getUserFavoriteItem(String userName, Pageable pageable) {
+        User user = getUserByName(userName);
+        return favoriteItemRepository.findAllByUserId(user.getId(), pageable)
+                .map(favoriteItemMapper::toResponseDto);
     }
 
     private User getUserByName(String userName) {
