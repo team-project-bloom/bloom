@@ -9,5 +9,7 @@ public interface FavoriteItemService {
     FavoriteItemResponseDto addFavoriteItem(FavoriteWineRequestDto requestDto,
                                             String userName);
 
-    Page<FavoriteItemResponseDto> getUserFavoriteItem(String userName, Pageable pageable);
+    Page<FavoriteItemResponseDto> getAllUserFavoriteItems(String userName, Pageable pageable);
+
+    FavoriteItemResponseDto getFavoriteItem(Long wineId, String userName);
 }

@@ -44,10 +44,23 @@ public class FavoriteItemServiceImpl implements FavoriteItemService {
     }
 
     @Override
-    public Page<FavoriteItemResponseDto> getUserFavoriteItem(String userName, Pageable pageable) {
+    public Page<FavoriteItemResponseDto> getAllUserFavoriteItems(
+            String userName, Pageable pageable) {
         User user = getUserByName(userName);
         return favoriteItemRepository.findAllByUserId(user.getId(), pageable)
                 .map(favoriteItemMapper::toResponseDto);
+    }
+
+    @Override
+    public FavoriteItemResponseDto getFavoriteItem(Long wineId, String userName) {
+        User user = getUserByName(userName);
+        FavoriteItem favoriteItem = favoriteItemRepository.findByUserIdAndWineId(
+                        user.getId(), wineId)
+                .orElseThrow(
+                        () -> new EntityNotFoundException("Can`t find favorite item by wine id "
+                                + wineId)
+                );
+        return favoriteItemMapper.toResponseDto(favoriteItem);
     }
 
     private User getUserByName(String userName) {

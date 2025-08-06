@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,9 +39,18 @@ public class FavoriteItemController {
     }
 
     @GetMapping("/all")
-    public Page<FavoriteItemResponseDto> getUserFavoriteItem(Authentication authentication,
-                                                             Pageable pageable) {
-        return favoriteItemService.getUserFavoriteItem(
+    @Operation(summary = "Get favorite wines", description = "Get all favorite wines the user")
+    public Page<FavoriteItemResponseDto> getAllUserFavoriteItems(Authentication authentication,
+                                                                 Pageable pageable) {
+        return favoriteItemService.getAllUserFavoriteItems(
                 userService.getUserName(authentication), pageable);
+    }
+
+    @GetMapping("/{wineId}")
+    @Operation(summary = "Get a favorite wine", description = "Get a favorite wine by wine id")
+    public FavoriteItemResponseDto getFavoriteItem(
+            @PathVariable Long wineId, Authentication authentication) {
+        return favoriteItemService.getFavoriteItem(
+                wineId, userService.getUserName(authentication));
     }
 }
