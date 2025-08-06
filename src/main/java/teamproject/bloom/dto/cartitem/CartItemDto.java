@@ -6,7 +6,6 @@ public record CartItemDto(
         Long id,
         Long wineId,
         String title,
-        String imgUrl,
         String variety,
         BigDecimal price,
         int quantity

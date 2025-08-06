@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import teamproject.bloom.dto.favoriteitem.FavoriteItemResponseDto;
 import teamproject.bloom.dto.favoriteitem.FavoriteWineRequestDto;
-import teamproject.bloom.exception.EntityNotFoundException;
+import teamproject.bloom.exception.unchecked.EntityNotFoundException;
 import teamproject.bloom.mapper.FavoriteItemMapper;
 import teamproject.bloom.model.FavoriteItem;
 import teamproject.bloom.model.User;
@@ -29,15 +29,16 @@ public class FavoriteItemServiceImpl implements FavoriteItemService {
     public FavoriteItemResponseDto addFavoriteItem(
             FavoriteWineRequestDto requestDto, String userName) {
         User user = getUserByName(userName);
-        Wine wine = getWineById(requestDto.id());
+        Wine wine = getWineById(requestDto.wineId());
         FavoriteItem favoriteItem = favoriteItemMapper.toModel(user, wine);
         user.getFavorites()
                 .stream()
-                .filter(i -> i.getWine().getId().equals(requestDto.id()))
+                .filter(i -> i.getWine().getId().equals(requestDto.wineId()))
                 .findFirst()
                 .ifPresent(i -> {
                     throw new EntityExistsException(
-                            String.format("Wine from id %s is already a favorite", requestDto.id())
+                            String.format("Wine from id %s is already a favorite",
+                                    requestDto.wineId())
                     );
                 });
         return favoriteItemMapper.toResponseDto(favoriteItemRepository.save(favoriteItem));

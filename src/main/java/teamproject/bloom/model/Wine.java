@@ -42,7 +42,6 @@ public class Wine {
     private Value value;
     @Column(nullable = false)
     private Integer vintage;
-    private String imgUrl;
     @ManyToOne
     @JoinColumn(name = "grape_id")
     private Grape grape;
@@ -50,7 +49,7 @@ public class Wine {
     @JoinColumn(name = "region_id")
     private Region region;
     private String description;
-    @Column(nullable = false)
+    @Column(name = "is_deleted", nullable = false)
     private Boolean isDeleted = false;
 
     public Wine(Long id) {

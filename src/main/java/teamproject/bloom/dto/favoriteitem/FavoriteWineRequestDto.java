@@ -6,6 +6,6 @@ import jakarta.validation.constraints.Positive;
 public record FavoriteWineRequestDto(
         @Positive
         @NotNull
-        Long id
+        Long wineId
 ) {
 }

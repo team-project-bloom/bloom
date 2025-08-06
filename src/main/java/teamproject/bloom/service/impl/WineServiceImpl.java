@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import teamproject.bloom.dto.wine.WineResponseDto;
 import teamproject.bloom.dto.wine.WineResponseWithAllParamsDto;
 import teamproject.bloom.dto.wine.WineSearchParametersDto;
-import teamproject.bloom.exception.EntityNotFoundException;
+import teamproject.bloom.exception.unchecked.EntityNotFoundException;
 import teamproject.bloom.mapper.WineMapper;
 import teamproject.bloom.model.Wine;
 import teamproject.bloom.repository.wine.WineRepository;

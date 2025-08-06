@@ -12,11 +12,11 @@ import teamproject.bloom.model.Wine;
 @Mapper(config = MapperConfig.class)
 public interface WineMapper {
 
-    @Mapping(target = "regionId", source = "region.id")
+    @Mapping(target = "region", source = "region.name")
     WineResponseDto toDto(Wine wine);
 
-    @Mapping(target = "grapeId", source = "grape.id")
-    @Mapping(target = "regionId", source = "region.id")
+    @Mapping(target = "grape", source = "grape.name")
+    @Mapping(target = "region", source = "region.name")
     WineResponseWithAllParamsDto toDtoWithAllParams(Wine wine);
 
     @Named("wineById")

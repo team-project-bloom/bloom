@@ -3,7 +3,7 @@ package teamproject.bloom.repository.wine;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import teamproject.bloom.exception.SpecificationNotFoundException;
+import teamproject.bloom.exception.unchecked.SpecificationNotFoundException;
 import teamproject.bloom.model.Wine;
 import teamproject.bloom.repository.SpecificationProvider;
 import teamproject.bloom.repository.SpecificationProviderManager;

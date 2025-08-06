@@ -11,9 +11,8 @@ public record WineResponseWithAllParamsDto(
         Wine.Variety variety,
         Wine.Value value,
         Integer vintage,
-        String imgUrl,
-        Long grapeId,
-        Long regionId,
+        String grape,
+        String region,
         String description
 ) {
 }

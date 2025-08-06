@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import teamproject.bloom.dto.cartitem.CartItemRequestDto;
 import teamproject.bloom.dto.cartitem.CartItemUpdateDto;
 import teamproject.bloom.dto.shoppingcart.ShoppingCartResponseDto;
-import teamproject.bloom.exception.EntityNotFoundException;
+import teamproject.bloom.exception.unchecked.EntityNotFoundException;
 import teamproject.bloom.mapper.CartItemMapper;
 import teamproject.bloom.mapper.ShoppingCartMapper;
 import teamproject.bloom.model.CartItem;

@@ -7,9 +7,8 @@ public record WineResponseDto(
         Long id,
         String title,
         BigDecimal price,
-        Long regionId,
+        String region,
         Wine.Variety variety,
-        Wine.Value value,
-        String imgUrl
+        Wine.Value value
 ) {
 }
