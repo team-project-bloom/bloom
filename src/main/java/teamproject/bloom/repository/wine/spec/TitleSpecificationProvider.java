@@ -1,6 +1,6 @@
 package teamproject.bloom.repository.wine.spec;
 
-import jakarta.persistence.criteria.Expression;
+import jakarta.persistence.criteria.Predicate;
 import java.util.Arrays;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -27,8 +27,13 @@ public class TitleSpecificationProvider implements SpecificationProvider<Wine> {
                 .toList();
         return (root, query, criteriaBuilder)
                 -> {
-            Expression<String> titleExpression = criteriaBuilder.lower(root.get(TITLE));
-            return titleExpression.in(titles);
+            Predicate[] predicates = titles.stream()
+                    .map(title -> criteriaBuilder.like(
+                            criteriaBuilder.lower(root.get(TITLE)),
+                            "%" + title + "%"
+                    ))
+                    .toArray(Predicate[]::new);
+            return criteriaBuilder.or(predicates);
         };
     }
 }
