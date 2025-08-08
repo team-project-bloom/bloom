@@ -7,8 +7,12 @@ public record WineResponseDto(
         Long id,
         String title,
         BigDecimal price,
-        String region,
+        Float alcohol,
         Wine.Variety variety,
-        Wine.Value value
+        Wine.Value value,
+        Integer vintage,
+        String grape,
+        String region,
+        String description
 ) {
 }

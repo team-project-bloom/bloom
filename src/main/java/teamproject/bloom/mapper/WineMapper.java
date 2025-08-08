@@ -6,18 +6,14 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import teamproject.bloom.config.MapperConfig;
 import teamproject.bloom.dto.wine.WineResponseDto;
-import teamproject.bloom.dto.wine.WineResponseWithAllParamsDto;
 import teamproject.bloom.model.Wine;
 
 @Mapper(config = MapperConfig.class)
 public interface WineMapper {
 
-    @Mapping(target = "region", source = "region.name")
-    WineResponseDto toDto(Wine wine);
-
     @Mapping(target = "grape", source = "grape.name")
     @Mapping(target = "region", source = "region.name")
-    WineResponseWithAllParamsDto toDtoWithAllParams(Wine wine);
+    WineResponseDto toDto(Wine wine);
 
     @Named("wineById")
     default Wine wineById(Long id) {

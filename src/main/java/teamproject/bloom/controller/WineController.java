@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import teamproject.bloom.dto.wine.WineResponseDto;
-import teamproject.bloom.dto.wine.WineResponseWithAllParamsDto;
 import teamproject.bloom.dto.wine.WineSearchParametersDto;
 import teamproject.bloom.service.WineService;
 
@@ -29,13 +28,14 @@ public class WineController {
 
     @GetMapping("/{wineId}")
     @Operation(summary = "Get a wine", description = "Get a wine by id")
-    public WineResponseWithAllParamsDto getById(@PathVariable Long wineId) {
+    public WineResponseDto getById(@PathVariable Long wineId) {
         return wineService.getWineById(wineId);
     }
 
     @GetMapping("/search")
     @Operation(summary = "Search wines", description = "Search wines by params")
-    public Page<WineResponseDto> search(WineSearchParametersDto wineSearchDto, Pageable pageable) {
+    public Page<WineResponseDto> search(WineSearchParametersDto wineSearchDto,
+                                        Pageable pageable) {
         return wineService.search(wineSearchDto, pageable);
     }
 }
