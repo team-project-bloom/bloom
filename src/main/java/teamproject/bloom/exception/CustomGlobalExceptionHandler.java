@@ -1,5 +1,6 @@
 package teamproject.bloom.exception;
 
+import jakarta.persistence.EntityExistsException;
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -20,6 +21,14 @@ import teamproject.bloom.exception.unchecked.EntityNotFoundException;
 
 @ControllerAdvice
 public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler {
+    @ExceptionHandler({EntityExistsException.class})
+    public ResponseEntity<Object> handlerEntityNotFoundException(
+            EntityExistsException exception) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(exception.getMessage());
+    }
+
     @ExceptionHandler({EntityNotFoundException.class})
     public ResponseEntity<Object> handlerEntityNotFoundException(
             EntityNotFoundException exception) {

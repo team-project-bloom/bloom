@@ -8,7 +8,7 @@ import teamproject.bloom.model.FavoriteItem;
 import teamproject.bloom.model.User;
 import teamproject.bloom.model.Wine;
 
-@Mapper(config = MapperConfig.class)
+@Mapper(config = MapperConfig.class, uses = WineMapper.class)
 public interface FavoriteItemMapper {
     @Mapping(target = "user", source = "user")
     @Mapping(target = "wine", source = "wine")
@@ -17,6 +17,8 @@ public interface FavoriteItemMapper {
 
     @Mapping(target = "userId", source = "user.id")
     @Mapping(target = "wineId", source = "wine.id")
+    @Mapping(target = "region", source = "wine.region", qualifiedByName = "regionByName")
+    @Mapping(target = "grape", source = "wine.grape", qualifiedByName = "grapeByName")
     FavoriteItemResponseDto toResponseDto(FavoriteItem favoriteItem);
 
 }
