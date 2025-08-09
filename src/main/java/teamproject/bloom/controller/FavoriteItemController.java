@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,5 +53,14 @@ public class FavoriteItemController {
             @PathVariable Long wineId, Authentication authentication) {
         return favoriteItemService.getFavoriteItem(
                 wineId, userService.getUserName(authentication));
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("{favoriteItemId}")
+    @Operation(summary = "Delete favorite item",
+            description = "Delete the favorite item from the user")
+    public void delete(@PathVariable Long favoriteItemId, Authentication authentication) {
+        favoriteItemService.deleteFavoriteItem(
+                favoriteItemId, userService.getUserName(authentication));
     }
 }

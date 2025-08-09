@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import teamproject.bloom.dto.favoriteitem.FavoriteItemResponseDto;
 import teamproject.bloom.dto.favoriteitem.FavoriteWineRequestDto;
 import teamproject.bloom.exception.unchecked.EntityNotFoundException;
@@ -19,6 +20,7 @@ import teamproject.bloom.service.FavoriteItemService;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class FavoriteItemServiceImpl implements FavoriteItemService {
     private final FavoriteItemRepository favoriteItemRepository;
     private final FavoriteItemMapper favoriteItemMapper;
@@ -62,6 +64,20 @@ public class FavoriteItemServiceImpl implements FavoriteItemService {
                                 + wineId)
                 );
         return favoriteItemMapper.toResponseDto(favoriteItem);
+    }
+
+    @Override
+    public void deleteFavoriteItem(Long favoriteId, String userName) {
+        User user = getUserByName(userName);
+        FavoriteItem favoriteItem = user.getFavorites()
+                .stream()
+                .filter(favorite -> favorite.getId().equals(favoriteId))
+                .findFirst()
+                .orElseThrow(() -> new EntityNotFoundException(
+                        String.format("Can`t find favorite item by id %s from user by id %s",
+                                favoriteId, user.getId()))
+                );
+        user.getFavorites().remove(favoriteItem);
     }
 
     private User getUserByName(String userName) {
