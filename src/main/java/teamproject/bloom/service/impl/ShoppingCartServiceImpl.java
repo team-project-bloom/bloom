@@ -1,7 +1,6 @@
 package teamproject.bloom.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import teamproject.bloom.dto.cartitem.CartItemRequestDto;
@@ -49,7 +48,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public ShoppingCartResponseDto getAllImages(String userName, Pageable pageable) {
+    public ShoppingCartResponseDto getAllImages(String userName) {
         User user = getUserByName(userName);
         ShoppingCart cart = shoppingCartRepository.findByUserId(user.getId());
         return shoppingCartMapper.toDto(cart);
