@@ -79,7 +79,7 @@ public class ShoppingCartServiceTest {
         int quantity = 3;
         ShoppingCart cart = createEmptyShoppingCart(3L);
         CartItemRequestDto cartItemRequestDto = cartItemRequestDto(wine.getId(), quantity);
-        CartItem cartItem = cartItem(1L, wine, quantity);
+        CartItem cartItem = cartItem(1L, wine, quantity, cart);
         ShoppingCartResponseDto expected = mapCartToCartDto(cart);
 
         when(userRepository.findByUserName(user.getUserName())).thenReturn(Optional.of(user));

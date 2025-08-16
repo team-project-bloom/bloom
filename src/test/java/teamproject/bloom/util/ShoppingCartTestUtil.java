@@ -14,11 +14,11 @@ import teamproject.bloom.model.Wine;
 
 public class ShoppingCartTestUtil {
     public static ShoppingCart createShoppingCart(Long id, Wine wine, int quantity) {
-        ShoppingCart shoppingCart = new ShoppingCart();
-        shoppingCart.setId(id);
-        shoppingCart.setUser(user(id));
-        shoppingCart.setCartItems(Set.of(cartItem(1L, wine, quantity)));
-        return shoppingCart;
+        ShoppingCart cart = new ShoppingCart();
+        cart.setId(id);
+        cart.setUser(user(id));
+        cart.setCartItems(Set.of(cartItem(1L, wine, quantity, cart)));
+        return cart;
     }
 
     public static ShoppingCart createEmptyShoppingCart(Long id) {
@@ -37,10 +37,10 @@ public class ShoppingCartTestUtil {
         return user;
     }
 
-    public static CartItem cartItem(Long id, Wine wine, int quantity) {
+    public static CartItem cartItem(Long id, Wine wine, int quantity, ShoppingCart cart) {
         CartItem cartItem = new CartItem();
         cartItem.setId(id);
-        cartItem.setShoppingCart(new ShoppingCart());
+        cartItem.setShoppingCart(cart);
         cartItem.setWine(wine);
         cartItem.setQuantity(quantity);
         return cartItem;
