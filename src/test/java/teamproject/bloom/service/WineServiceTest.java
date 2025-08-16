@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static teamproject.bloom.util.WineTestUtil.createParamDto;
-import static teamproject.bloom.util.WineTestUtil.createWine;
 import static teamproject.bloom.util.WineTestUtil.mapWineToWineResponseDto;
+import static teamproject.bloom.util.WineTestUtil.wine;
 
 import java.util.List;
 import java.util.Optional;
@@ -46,7 +46,7 @@ public class WineServiceTest {
     @Test
     @DisplayName("Verify method getAll with correct data")
     public void getAll_CorrectData_ReturnPageDto() {
-        Wine wine = createWine(1L, "Wine");
+        Wine wine = wine(1L, "Wine");
         WineResponseDto expected = mapWineToWineResponseDto(wine);
         Pageable pageable = PageRequest.of(0, 10);
         List<Wine> wines = List.of(wine);
@@ -64,7 +64,7 @@ public class WineServiceTest {
     @Test
     @DisplayName("Verify method getWineById with correct data")
     public void getWineById_CorrectData_ReturnDto() {
-        Wine wine = createWine(1L, "Wine");
+        Wine wine = wine(1L, "Wine");
         WineResponseDto expected = mapWineToWineResponseDto(wine);
 
         when(wineRepository.findById(wine.getId())).thenReturn(Optional.of(wine));
@@ -79,8 +79,8 @@ public class WineServiceTest {
             Verify method getWineById with incorrect data.
              A wine by id isn`t exist
             """)
-    public void getWineById_IncorrectData_ReturnStatus() {
-        Wine wine = createWine(1L, "Wine");
+    public void getWineById_IncorrectData_ReturnException() {
+        Wine wine = wine(1L, "Wine");
 
         when(wineRepository.findById(1L)).thenReturn(Optional.empty());
         Exception actual = assertThrows(EntityNotFoundException.class,
@@ -95,7 +95,7 @@ public class WineServiceTest {
     public void search_CorrectData_ReturnDto() {
         WineSearchParametersDto params = createParamDto();
         specification = mock(Specification.class);
-        Wine wine = createWine(1L, "Wine");
+        Wine wine = wine(1L, "Wine");
         Pageable pageable = PageRequest.of(0, 20);
         WineResponseDto expected = mapWineToWineResponseDto(wine);
         List<Wine> wines = List.of(wine);

@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import teamproject.bloom.dto.cartitem.CartItemDto;
 import teamproject.bloom.dto.cartitem.CartItemRequestDto;
+import teamproject.bloom.dto.cartitem.CartItemUpdateDto;
 import teamproject.bloom.dto.shoppingcart.ShoppingCartResponseDto;
 import teamproject.bloom.model.CartItem;
 import teamproject.bloom.model.FavoriteItem;
@@ -13,15 +14,18 @@ import teamproject.bloom.model.User;
 import teamproject.bloom.model.Wine;
 
 public class ShoppingCartTestUtil {
-    public static ShoppingCart createShoppingCart(Long id, Wine wine, int quantity) {
+    public static ShoppingCart shoppingCart(Long id, Wine wine, int quantity) {
         ShoppingCart cart = new ShoppingCart();
         cart.setId(id);
         cart.setUser(user(id));
-        cart.setCartItems(Set.of(cartItem(1L, wine, quantity, cart)));
+        cart.setCartItems(new HashSet<>());
+
+        CartItem cartItem = cartItem(1L, wine, quantity, cart);
+        cart.getCartItems().add(cartItem);
         return cart;
     }
 
-    public static ShoppingCart createEmptyShoppingCart(Long id) {
+    public static ShoppingCart emptyShoppingCart(Long id) {
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.setId(id);
         shoppingCart.setUser(user(1L));
@@ -44,6 +48,12 @@ public class ShoppingCartTestUtil {
         cartItem.setWine(wine);
         cartItem.setQuantity(quantity);
         return cartItem;
+    }
+
+    public static CartItemUpdateDto cartItemUpdateDto() {
+        return new CartItemUpdateDto(
+                3
+        );
     }
 
     public static CartItemRequestDto cartItemRequestDto(Long wineId, int quantity) {

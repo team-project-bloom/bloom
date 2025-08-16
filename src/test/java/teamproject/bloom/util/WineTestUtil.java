@@ -8,7 +8,7 @@ import teamproject.bloom.model.Region;
 import teamproject.bloom.model.Wine;
 
 public class WineTestUtil {
-    public static Wine createWine(Long id, String name) {
+    public static Wine wine(Long id, String name) {
         Wine wine = new Wine();
         wine.setId(id);
         wine.setTitle(name);
