@@ -1,5 +1,7 @@
 package teamproject.bloom.util;
 
+import static teamproject.bloom.util.UserTestUtil.user;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -8,9 +10,7 @@ import teamproject.bloom.dto.cartitem.CartItemRequestDto;
 import teamproject.bloom.dto.cartitem.CartItemUpdateDto;
 import teamproject.bloom.dto.shoppingcart.ShoppingCartResponseDto;
 import teamproject.bloom.model.CartItem;
-import teamproject.bloom.model.FavoriteItem;
 import teamproject.bloom.model.ShoppingCart;
-import teamproject.bloom.model.User;
 import teamproject.bloom.model.Wine;
 
 public class ShoppingCartTestUtil {
@@ -31,14 +31,6 @@ public class ShoppingCartTestUtil {
         shoppingCart.setUser(user(1L));
         shoppingCart.setCartItems(new HashSet<>());
         return shoppingCart;
-    }
-
-    public static User user(Long id) {
-        User user = new User();
-        user.setId(id);
-        user.setUserName("userName");
-        user.setFavorites(Set.of(new FavoriteItem()));
-        return user;
     }
 
     public static CartItem cartItem(Long id, Wine wine, int quantity, ShoppingCart cart) {

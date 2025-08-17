@@ -12,7 +12,7 @@ import static teamproject.bloom.util.ShoppingCartTestUtil.cartItemUpdateDto;
 import static teamproject.bloom.util.ShoppingCartTestUtil.emptyShoppingCart;
 import static teamproject.bloom.util.ShoppingCartTestUtil.mapCartToCartDto;
 import static teamproject.bloom.util.ShoppingCartTestUtil.shoppingCart;
-import static teamproject.bloom.util.ShoppingCartTestUtil.user;
+import static teamproject.bloom.util.UserTestUtil.user;
 import static teamproject.bloom.util.WineTestUtil.wine;
 
 import java.util.Optional;
@@ -243,7 +243,6 @@ public class ShoppingCartServiceTest {
     @DisplayName("Verify method createShoppingCart with correct data")
     public void createShoppingCart_CorrectData_Void() {
         User user = user(1L);
-        ShoppingCart cart = emptyShoppingCart(1L);
 
         when(shoppingCartRepository.save(any(ShoppingCart.class)))
                 .thenReturn(any(ShoppingCart.class));
