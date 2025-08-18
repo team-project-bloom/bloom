@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import teamproject.bloom.exception.checked.RegistrationException;
 import teamproject.bloom.exception.unchecked.EntityNotFoundException;
 
 @ControllerAdvice
@@ -34,14 +33,6 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
             EntityNotFoundException exception) {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
-                .body(exception.getMessage());
-    }
-
-    @ExceptionHandler({RegistrationException.class})
-    public ResponseEntity<Object> handlerRegistrationException(
-            RegistrationException exception) {
-        return ResponseEntity
-                .status(HttpStatus.CONFLICT)
                 .body(exception.getMessage());
     }
 

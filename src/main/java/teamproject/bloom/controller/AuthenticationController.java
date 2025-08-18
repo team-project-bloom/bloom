@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import teamproject.bloom.dto.user.UserLoginResponseDto;
-import teamproject.bloom.exception.checked.RegistrationException;
 import teamproject.bloom.service.UserService;
 
 @Tag(name = "Auth", description = "Endpoints for register users if they do not exist")
@@ -29,7 +28,7 @@ public class AuthenticationController {
     public UserLoginResponseDto register(
             Authentication authentication,
             @RequestHeader(value = HttpHeaders.AUTHORIZATION,
-                    required = false) String authHeader) throws RegistrationException {
+                    required = false) String authHeader) {
         return userService.register(userService.getUserName(authentication), authHeader);
     }
 }

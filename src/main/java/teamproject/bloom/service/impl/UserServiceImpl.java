@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import teamproject.bloom.dto.user.UserLoginResponseDto;
-import teamproject.bloom.exception.checked.RegistrationException;
 import teamproject.bloom.mapper.UserMapper;
 import teamproject.bloom.model.User;
 import teamproject.bloom.repository.user.UserRepository;
@@ -26,13 +25,11 @@ public class UserServiceImpl implements UserService {
     private final JwtUtil jwtUtil;
 
     @Override
-    public UserLoginResponseDto register(String userName, String bearerToken)
-            throws RegistrationException {
+    public UserLoginResponseDto register(String userName, String bearerToken) {
         if (userRepository.existsByUserName(userName)) {
             return userMapper.toResponseDto(getToken(bearerToken));
         }
         userName = UUID.randomUUID().toString();
-        checkIfUserExists(userName);
         User user = userMapper.createUser(userName);
         user = userRepository.save(user);
         shoppingCartService.createShoppingCart(user);
@@ -54,12 +51,5 @@ public class UserServiceImpl implements UserService {
             return bearerToken.substring(BEARER.length());
         }
         return null;
-    }
-
-    private void checkIfUserExists(String userName) throws RegistrationException {
-        if (userRepository.existsByUserName(userName)) {
-            throw new RegistrationException(
-                    String.format("User with name %s is exist", userName));
-        }
     }
 }
