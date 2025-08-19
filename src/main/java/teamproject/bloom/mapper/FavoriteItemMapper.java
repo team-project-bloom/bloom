@@ -17,6 +17,10 @@ public interface FavoriteItemMapper {
 
     @Mapping(target = "userId", source = "user.id")
     @Mapping(target = "wineId", source = "wine.id")
+    @Mapping(target = "title", source = "wine.title")
+    @Mapping(target = "price", source = "wine.price")
+    @Mapping(target = "variety", source = "wine.variety")
+    @Mapping(target = "value", source = "wine.value")
     @Mapping(target = "region", source = "wine.region", qualifiedByName = "regionByName")
     @Mapping(target = "grape", source = "wine.grape", qualifiedByName = "grapeByName")
     FavoriteItemResponseDto toResponseDto(FavoriteItem favoriteItem);

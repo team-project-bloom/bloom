@@ -26,6 +26,10 @@ public class FavoriteItemTestUtil {
                 favoriteItem.getId(),
                 favoriteItem.getUser().getId(),
                 favoriteItem.getWine().getId(),
+                favoriteItem.getWine().getTitle(),
+                favoriteItem.getWine().getPrice(),
+                favoriteItem.getWine().getVariety(),
+                favoriteItem.getWine().getValue(),
                 favoriteItem.getWine().getRegion().getName(),
                 favoriteItem.getWine().getGrape().getName()
         );
