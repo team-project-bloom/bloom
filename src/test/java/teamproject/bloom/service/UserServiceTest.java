@@ -70,13 +70,13 @@ public class UserServiceTest {
     @Test
     @DisplayName("Verify method getUserName with correct data")
     public void getUserName_CorrectData_ReturnString() {
-        String userName = "UserName";
+        User expected = user(1L);
         Authentication authentication = mock(Authentication.class);
 
-        when(authentication.getPrincipal()).thenReturn(userName);
+        when(authentication.getPrincipal()).thenReturn(expected);
         String actual = userService.getUserName(authentication);
 
-        assertEquals(userName, actual);
+        assertEquals(expected.getUserName(), actual);
     }
 
     @Test

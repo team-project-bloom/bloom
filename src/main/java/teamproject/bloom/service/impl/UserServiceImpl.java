@@ -40,7 +40,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public String getUserName(Authentication authentication) {
         if (authentication != null) {
-            return (String) authentication.getPrincipal();
+            User user = (User) authentication.getPrincipal();
+            return user.getUserName();
         }
         return null;
     }

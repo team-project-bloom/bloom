@@ -15,6 +15,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import teamproject.bloom.mapper.UserMapper;
+import teamproject.bloom.model.User;
 import teamproject.bloom.service.UserService;
 
 @Component
@@ -24,6 +26,7 @@ public class JwtAnonymousFilter extends OncePerRequestFilter {
             new SimpleGrantedAuthority("ROLE_ANONYMOUS"));
     private final JwtUtil jwtUtil;
     private final UserService userService;
+    private final UserMapper userMapper;
 
     @Override
     protected void doFilterInternal(
@@ -33,8 +36,9 @@ public class JwtAnonymousFilter extends OncePerRequestFilter {
         String token = getTokenFromHeader(request);
         if (token != null && jwtUtil.isValidToken(token)) {
             String username = jwtUtil.getUsername(token);
+            User user = userMapper.createUser(username);
             Authentication authentication = new UsernamePasswordAuthenticationToken(
-                    username,
+                    user,
                     null,
                     roles
             );

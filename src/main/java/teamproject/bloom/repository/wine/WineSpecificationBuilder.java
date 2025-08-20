@@ -23,7 +23,7 @@ public class WineSpecificationBuilder implements SpecificationBuilder<Wine> {
 
     @Override
     public Specification<Wine> build(WineSearchParametersDto params) {
-        Specification<Wine> spec = Specification.unrestricted();
+        Specification<Wine> spec = Specification.where(null);
         if (params.title() != null && params.title().length > 0) {
             spec = spec.and(wineSpecificationProviderManager
                     .getSpecificationProvider(TitleSpecificationProvider.TITLE)
