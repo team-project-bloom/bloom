@@ -1,7 +1,5 @@
 package teamproject.bloom.util;
 
-import static teamproject.bloom.util.UserTestUtil.user;
-
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -11,13 +9,14 @@ import teamproject.bloom.dto.cartitem.CartItemUpdateDto;
 import teamproject.bloom.dto.shoppingcart.ShoppingCartResponseDto;
 import teamproject.bloom.model.CartItem;
 import teamproject.bloom.model.ShoppingCart;
+import teamproject.bloom.model.User;
 import teamproject.bloom.model.Wine;
 
 public class ShoppingCartTestUtil {
-    public static ShoppingCart shoppingCart(Long id, Wine wine, int quantity) {
+    public static ShoppingCart shoppingCart(Long id, Wine wine, int quantity, User user) {
         ShoppingCart cart = new ShoppingCart();
         cart.setId(id);
-        cart.setUser(user(id, "userName"));
+        cart.setUser(user);
         cart.setCartItems(new HashSet<>());
 
         CartItem cartItem = cartItem(1L, wine, quantity, cart);
@@ -25,10 +24,10 @@ public class ShoppingCartTestUtil {
         return cart;
     }
 
-    public static ShoppingCart emptyShoppingCart(Long id) {
+    public static ShoppingCart emptyShoppingCart(Long id, User user) {
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.setId(id);
-        shoppingCart.setUser(user(1L, "userName"));
+        shoppingCart.setUser(user);
         shoppingCart.setCartItems(new HashSet<>());
         return shoppingCart;
     }
@@ -42,9 +41,9 @@ public class ShoppingCartTestUtil {
         return cartItem;
     }
 
-    public static CartItemUpdateDto cartItemUpdateDto() {
+    public static CartItemUpdateDto cartItemUpdateDto(int quantity) {
         return new CartItemUpdateDto(
-                3
+                quantity
         );
     }
 

@@ -23,7 +23,7 @@ import teamproject.bloom.service.UserService;
 
 @Tag(name = "FavoriteItem", description = "Endpoints for favorite item management")
 @RestController
-@RequestMapping("/favorite")
+@RequestMapping("/favorites")
 @RequiredArgsConstructor
 public class FavoriteItemController {
     private final FavoriteItemService favoriteItemService;

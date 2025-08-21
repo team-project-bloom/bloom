@@ -61,7 +61,7 @@ public class ShoppingCartServiceTest {
         User user = user(1L, "userName");
         Wine wine = wine(1L, "Wine");
         int quantity = 3;
-        ShoppingCart cart = shoppingCart(1L, wine, quantity);
+        ShoppingCart cart = shoppingCart(1L, wine, quantity, user);
         CartItemRequestDto cartItemRequestDto = cartItemRequestDto(wine.getId(), quantity);
         ShoppingCartResponseDto expected = mapCartToCartDto(cart);
 
@@ -82,7 +82,7 @@ public class ShoppingCartServiceTest {
         User user = user(1L, "userName");
         Wine wine = wine(1L, "Wine");
         int quantity = 3;
-        ShoppingCart cart = emptyShoppingCart(3L);
+        ShoppingCart cart = emptyShoppingCart(3L, user);
         CartItemRequestDto cartItemRequestDto = cartItemRequestDto(wine.getId(), quantity);
         CartItem cartItem = cartItem(1L, wine, quantity, cart);
         ShoppingCartResponseDto expected = mapCartToCartDto(cart);
@@ -143,7 +143,7 @@ public class ShoppingCartServiceTest {
     public void getAllImages_CorrectData_ReturnDto() {
         User user = user(1L, "userName");
         Wine wine = wine(1L, "Wine");
-        ShoppingCart cart = shoppingCart(1L, wine, 3);
+        ShoppingCart cart = shoppingCart(1L, wine, 3, user);
         ShoppingCartResponseDto expected = mapCartToCartDto(cart);
 
         when(userRepository.findByUserName(user.getUserName())).thenReturn(Optional.of(user));
@@ -160,9 +160,9 @@ public class ShoppingCartServiceTest {
         User user = user(1L, "userName");
         Wine wine = wine(1L, "Wine");
         int quantity = 2;
-        ShoppingCart cart = shoppingCart(1L, wine, quantity);
+        ShoppingCart cart = shoppingCart(1L, wine, quantity, user);
         CartItem cartItem = cartItem(1L, wine, quantity, cart);
-        CartItemUpdateDto cartItemUpdateDto = cartItemUpdateDto();
+        CartItemUpdateDto cartItemUpdateDto = cartItemUpdateDto(3);
         ShoppingCartResponseDto expected = mapCartToCartDto(cart);
 
         when(userRepository.findByUserName(user.getUserName())).thenReturn(Optional.of(user));
@@ -186,9 +186,9 @@ public class ShoppingCartServiceTest {
         User user = user(1L, "userName");
         Wine wine = wine(1L, "Wine");
         int quantity = 2;
-        ShoppingCart cart = shoppingCart(1L, wine, quantity);
+        ShoppingCart cart = shoppingCart(1L, wine, quantity, user);
         CartItem cartItem = cartItem(1L, wine, quantity, cart);
-        CartItemUpdateDto cartItemUpdateDto = cartItemUpdateDto();
+        CartItemUpdateDto cartItemUpdateDto = cartItemUpdateDto(3);
 
         when(userRepository.findByUserName(user.getUserName())).thenReturn(Optional.of(user));
         when(shoppingCartRepository.findByUserId(user.getId())).thenReturn(cart);
@@ -210,7 +210,7 @@ public class ShoppingCartServiceTest {
         User user = user(1L, "userName");
         Wine wine = wine(1L, "Wine");
         int quantity = 2;
-        ShoppingCart cart = shoppingCart(1L, wine, quantity);
+        ShoppingCart cart = shoppingCart(1L, wine, quantity, user);
 
         when(userRepository.findByUserName(user.getUserName())).thenReturn(Optional.of(user));
         when(shoppingCartRepository.findByUserId(user.getId())).thenReturn(cart);
@@ -228,7 +228,7 @@ public class ShoppingCartServiceTest {
     public void deleteCartItem_IncorrectData_ReturnException() {
         User user = user(1L, "userName");
         long itemId = 15L;
-        ShoppingCart cart = emptyShoppingCart(1L);
+        ShoppingCart cart = emptyShoppingCart(1L, user);
 
         when(userRepository.findByUserName(user.getUserName())).thenReturn(Optional.of(user));
         when(shoppingCartRepository.findByUserId(user.getId())).thenReturn(cart);

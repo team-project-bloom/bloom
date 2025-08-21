@@ -86,7 +86,7 @@ public class FavoriteItemControllerTest {
         SecurityContextHolder.setContext(context);
 
         MvcResult result = mockMvc.perform(
-                        post("/favorite/add")
+                        post("/favorites/add")
                                 .content(jsonRequest)
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
@@ -110,7 +110,7 @@ public class FavoriteItemControllerTest {
         SecurityContextHolder.setContext(context);
 
         mockMvc.perform(
-                        post("/favorite/add")
+                        post("/favorites/add")
                                 .content(jsonRequest)
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
@@ -133,7 +133,7 @@ public class FavoriteItemControllerTest {
         SecurityContextHolder.setContext(context);
 
         mockMvc.perform(
-                        post("/favorite/add")
+                        post("/favorites/add")
                                 .content(jsonRequest)
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
@@ -158,7 +158,7 @@ public class FavoriteItemControllerTest {
         SecurityContextHolder.setContext(context);
 
         mockMvc.perform(
-                        post("/favorite/add")
+                        post("/favorites/add")
                                 .content(jsonRequest)
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
@@ -180,7 +180,7 @@ public class FavoriteItemControllerTest {
         SecurityContextHolder.setContext(context);
 
         MvcResult result = mockMvc.perform(
-                        get("/favorite/all")
+                        get("/favorites/all")
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -206,7 +206,7 @@ public class FavoriteItemControllerTest {
         SecurityContextHolder.setContext(context);
 
         mockMvc.perform(
-                        get("/favorite/all")
+                        get("/favorites/all")
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
@@ -227,11 +227,11 @@ public class FavoriteItemControllerTest {
         SecurityContextHolder.setContext(context);
 
         mockMvc.perform(
-                        delete("/favorite/1")
+                        delete("/favorites/1")
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
         MvcResult result = mockMvc.perform(
-                        get("/favorite/all")
+                        get("/favorites/all")
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -262,7 +262,7 @@ public class FavoriteItemControllerTest {
         SecurityContextHolder.setContext(context);
 
         mockMvc.perform(
-                        delete("/favorite/2")
+                        delete("/favorites/2")
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
@@ -277,7 +277,7 @@ public class FavoriteItemControllerTest {
         SecurityContextHolder.setContext(context);
 
         mockMvc.perform(
-                        delete("/favorite/1")
+                        delete("/favorites/1")
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
