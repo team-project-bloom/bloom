@@ -38,8 +38,8 @@ import teamproject.bloom.repository.user.UserRepository;
 import teamproject.bloom.security.JwtUtil;
 import teamproject.bloom.service.ShoppingCartService;
 
-@AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureMockMvc
 public class AuthenticationControllerTest {
     protected static MockMvc mockMvc;
     @Autowired
@@ -113,4 +113,3 @@ public class AuthenticationControllerTest {
         assertTrue(reflectionEquals(expected, actual));
     }
 }
-

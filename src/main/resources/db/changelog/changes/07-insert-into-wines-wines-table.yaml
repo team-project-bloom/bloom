@@ -1,7 +1,8 @@
 databaseChangeLog:
   - changeSet:
       id: insert-wines
-      author: Anton
+      author: Anton Star
+      context: prod
       changes:
         - loadData:
             file: db/data/wines.csv
