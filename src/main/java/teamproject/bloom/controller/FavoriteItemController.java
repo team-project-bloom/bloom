@@ -47,14 +47,6 @@ public class FavoriteItemController {
                 userService.getUserName(authentication), pageable);
     }
 
-    @GetMapping("/{wineId}")
-    @Operation(summary = "Get a favorite wine", description = "Get a favorite wine by wine id")
-    public FavoriteItemResponseDto getFavoriteItem(
-            @PathVariable Long wineId, Authentication authentication) {
-        return favoriteItemService.getFavoriteItem(
-                wineId, userService.getUserName(authentication));
-    }
-
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("{favoriteItemId}")
     @Operation(summary = "Delete favorite item",

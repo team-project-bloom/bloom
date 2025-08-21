@@ -11,7 +11,5 @@ public interface FavoriteItemService {
 
     Page<FavoriteItemResponseDto> getAllUserFavoriteItems(String userName, Pageable pageable);
 
-    FavoriteItemResponseDto getFavoriteItem(Long wineId, String userName);
-
     void deleteFavoriteItem(Long favoriteId, String userName);
 }

@@ -122,43 +122,6 @@ public class FavoriteItemServiceTest {
     }
 
     @Test
-    @DisplayName("Verify method getFavoriteItem with correct data")
-    public void getFavoriteItem_CorrectData_ReturnDto() {
-        User user = user(1L);
-        Wine wine = wine(1L, "Wine");
-        FavoriteItem favoriteItem = favoriteItem(1L, wine, user);
-        FavoriteItemResponseDto expected = mapFavoriteItemToDto(favoriteItem);
-
-        when(userRepository.findByUserName(user.getUserName())).thenReturn(Optional.of(user));
-        when(favoriteItemRepository.findByUserIdAndWineId(user.getId(), wine.getId()))
-                .thenReturn(Optional.of(favoriteItem));
-        when(favoriteItemMapper.toResponseDto(favoriteItem)).thenReturn(expected);
-        FavoriteItemResponseDto actual = favoriteItemService.getFavoriteItem(
-                wine.getId(), user.getUserName());
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    @DisplayName("""
-            Verify method getFavoriteItem with incorrect data.
-             A favorite item is exists
-            """)
-    public void getFavoriteItem_IncorrectData_ReturnException() {
-        User user = user(1L);
-        Wine wine = wine(1L, "Wine");
-
-        when(userRepository.findByUserName(user.getUserName())).thenReturn(Optional.of(user));
-        when(favoriteItemRepository.findByUserIdAndWineId(user.getId(), wine.getId()))
-                .thenReturn(Optional.empty());
-        Exception actual = assertThrows(EntityNotFoundException.class,
-                () -> favoriteItemService.getFavoriteItem(wine.getId(), user.getUserName()));
-
-        String expected = "Can`t find favorite item by wine id " + wine.getId();
-        assertEquals(expected, actual.getMessage());
-    }
-
-    @Test
     @DisplayName("Verify method deleteFavoriteItem with correct data")
     public void deleteFavoriteItem_CorrectData_Void() {
         Wine wine = wine(1L, "Wine");

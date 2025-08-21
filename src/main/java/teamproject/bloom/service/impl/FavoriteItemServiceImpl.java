@@ -55,18 +55,6 @@ public class FavoriteItemServiceImpl implements FavoriteItemService {
     }
 
     @Override
-    public FavoriteItemResponseDto getFavoriteItem(Long wineId, String userName) {
-        User user = getUserByName(userName);
-        FavoriteItem favoriteItem = favoriteItemRepository.findByUserIdAndWineId(
-                        user.getId(), wineId)
-                .orElseThrow(
-                        () -> new EntityNotFoundException("Can`t find favorite item by wine id "
-                                + wineId)
-                );
-        return favoriteItemMapper.toResponseDto(favoriteItem);
-    }
-
-    @Override
     public void deleteFavoriteItem(Long favoriteId, String userName) {
         User user = getUserByName(userName);
         FavoriteItem favoriteItem = user.getFavorites()

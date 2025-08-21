@@ -46,10 +46,6 @@ public class WineTestUtil {
         );
     }
 
-    public static WineSearchParametersDto oneParamDto() {
-        return new WineSearchParametersDto.Builder().title("2").build();
-    }
-
     public static Grape createGrape(Long id, String name) {
         Grape grape = new Grape();
         grape.setId(id);
