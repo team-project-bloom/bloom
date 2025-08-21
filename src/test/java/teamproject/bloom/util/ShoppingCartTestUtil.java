@@ -17,7 +17,7 @@ public class ShoppingCartTestUtil {
     public static ShoppingCart shoppingCart(Long id, Wine wine, int quantity) {
         ShoppingCart cart = new ShoppingCart();
         cart.setId(id);
-        cart.setUser(user(id));
+        cart.setUser(user(id, "userName"));
         cart.setCartItems(new HashSet<>());
 
         CartItem cartItem = cartItem(1L, wine, quantity, cart);
@@ -28,7 +28,7 @@ public class ShoppingCartTestUtil {
     public static ShoppingCart emptyShoppingCart(Long id) {
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.setId(id);
-        shoppingCart.setUser(user(1L));
+        shoppingCart.setUser(user(1L, "userName"));
         shoppingCart.setCartItems(new HashSet<>());
         return shoppingCart;
     }

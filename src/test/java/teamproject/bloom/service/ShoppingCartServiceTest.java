@@ -58,7 +58,7 @@ public class ShoppingCartServiceTest {
     @Test
     @DisplayName("Verify method addItem with correct data")
     public void addItem_CorrectData_ReturnDto() {
-        User user = user(1L);
+        User user = user(1L, "userName");
         Wine wine = wine(1L, "Wine");
         int quantity = 3;
         ShoppingCart cart = shoppingCart(1L, wine, quantity);
@@ -79,7 +79,7 @@ public class ShoppingCartServiceTest {
     @Test
     @DisplayName("Verify method addItem with correct data")
     public void addItem_CorrectDataEmptyCart_ReturnDto() {
-        User user = user(1L);
+        User user = user(1L, "userName");
         Wine wine = wine(1L, "Wine");
         int quantity = 3;
         ShoppingCart cart = emptyShoppingCart(3L);
@@ -105,7 +105,7 @@ public class ShoppingCartServiceTest {
              A user by id isn`t exist
             """)
     public void addItem_IncorrectDataUserId_ReturnException() {
-        User user = user(544L);
+        User user = user(544L, "userName");
         Wine wine = wine(1L, "Wine");
         int quantity = 3;
         CartItemRequestDto cartItemRequestDto = cartItemRequestDto(wine.getId(), quantity);
@@ -124,7 +124,7 @@ public class ShoppingCartServiceTest {
              A wine by id isn`t exist
             """)
     public void addItem_IncorrectDataWineId_ReturnException() {
-        User user = user(544L);
+        User user = user(544L, "userName");
         Wine wine = wine(1L, "Wine");
         int quantity = 3;
         CartItemRequestDto cartItemRequestDto = cartItemRequestDto(wine.getId(), quantity);
@@ -141,7 +141,7 @@ public class ShoppingCartServiceTest {
     @Test
     @DisplayName("Verify method getAllImages with correct data")
     public void getAllImages_CorrectData_ReturnDto() {
-        User user = user(1L);
+        User user = user(1L, "userName");
         Wine wine = wine(1L, "Wine");
         ShoppingCart cart = shoppingCart(1L, wine, 3);
         ShoppingCartResponseDto expected = mapCartToCartDto(cart);
@@ -157,7 +157,7 @@ public class ShoppingCartServiceTest {
     @Test
     @DisplayName("Verify method updateCartItem with correct data")
     public void updateCartItem_CorrectData_ReturnDto() {
-        User user = user(1L);
+        User user = user(1L, "userName");
         Wine wine = wine(1L, "Wine");
         int quantity = 2;
         ShoppingCart cart = shoppingCart(1L, wine, quantity);
@@ -183,7 +183,7 @@ public class ShoppingCartServiceTest {
              A cartItem by id isn`t exist
             """)
     public void updateCartItem_IncorrectData_ReturnException() {
-        User user = user(1L);
+        User user = user(1L, "userName");
         Wine wine = wine(1L, "Wine");
         int quantity = 2;
         ShoppingCart cart = shoppingCart(1L, wine, quantity);
@@ -207,7 +207,7 @@ public class ShoppingCartServiceTest {
     @Test
     @DisplayName("Verify method deleteCartItem with correct data")
     public void deleteCartItem_CorrectData_Void() {
-        User user = user(1L);
+        User user = user(1L, "userName");
         Wine wine = wine(1L, "Wine");
         int quantity = 2;
         ShoppingCart cart = shoppingCart(1L, wine, quantity);
@@ -226,7 +226,7 @@ public class ShoppingCartServiceTest {
              A cartItem by id isn`t exist
             """)
     public void deleteCartItem_IncorrectData_ReturnException() {
-        User user = user(1L);
+        User user = user(1L, "userName");
         long itemId = 15L;
         ShoppingCart cart = emptyShoppingCart(1L);
 
@@ -242,7 +242,7 @@ public class ShoppingCartServiceTest {
     @Test
     @DisplayName("Verify method createShoppingCart with correct data")
     public void createShoppingCart_CorrectData_Void() {
-        User user = user(1L);
+        User user = user(1L, "userName");
 
         when(shoppingCartRepository.save(any(ShoppingCart.class)))
                 .thenReturn(any(ShoppingCart.class));

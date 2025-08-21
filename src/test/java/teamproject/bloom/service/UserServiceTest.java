@@ -39,7 +39,7 @@ public class UserServiceTest {
     @Test
     @DisplayName("Verify method register with correct data. User isn`t exists")
     public void register_CorrectDataUserNoExists_ReturnDto() {
-        User user = user(1L);
+        User user = user(1L, "userName");
         String token = "g4m5g94.4f45g.f45f3ff";
         UserLoginResponseDto expected = mapTokenToUserLoginResponseDto(token);
 
@@ -70,7 +70,7 @@ public class UserServiceTest {
     @Test
     @DisplayName("Verify method getUserName with correct data")
     public void getUserName_CorrectData_ReturnString() {
-        User expected = user(1L);
+        User expected = user(1L, "userName");
         Authentication authentication = mock(Authentication.class);
 
         when(authentication.getPrincipal()).thenReturn(expected);

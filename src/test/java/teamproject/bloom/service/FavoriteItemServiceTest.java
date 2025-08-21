@@ -54,7 +54,7 @@ public class FavoriteItemServiceTest {
     @DisplayName("Verify method addFavoriteItem with correct data")
     public void addFavoriteItemNonExists_CorrectData_ReturnDto() {
         Wine wine = wine(1L, "Wine");
-        User user = user(1L);
+        User user = user(1L, "userName");
         FavoriteItem favoriteItem = favoriteItem(1L, wine, user);
         FavoriteWineRequestDto favoriteWineRequestDto = favoriteWineRequestDto(wine.getId());
         FavoriteItemResponseDto expected = mapFavoriteItemToDto(favoriteItem);
@@ -100,7 +100,7 @@ public class FavoriteItemServiceTest {
     @Test
     @DisplayName("Verify method getAllUserFavoriteItems with correct data")
     public void getAllUserFavoriteItems_CorrectData_ReturnPageDto() {
-        User user = user(1L);
+        User user = user(1L, "userName");
         Wine wine = wine(1L, "Wine");
         FavoriteItem favoriteItem = favoriteItem(1L, wine, user);
         FavoriteItemResponseDto expected = mapFavoriteItemToDto(favoriteItem);
@@ -139,7 +139,7 @@ public class FavoriteItemServiceTest {
              A favorite item is exists
             """)
     public void deleteFavoriteItem_IncorrectData_Void() {
-        User user = user(1L);
+        User user = user(1L, "userName");
 
         when(userRepository.findByUserName(user.getUserName())).thenReturn(Optional.of(user));
         Exception actual = assertThrows(EntityNotFoundException.class,
@@ -173,7 +173,7 @@ public class FavoriteItemServiceTest {
             """)
     public void getWineById_IncorrectData_ReturnModel() {
         long wineId = 10L;
-        User user = user(1L);
+        User user = user(1L, "userName");
         FavoriteWineRequestDto favoriteWineRequestDto = favoriteWineRequestDto(wineId);
 
         when(userRepository.findByUserName(user.getUserName())).thenReturn(Optional.of(user));

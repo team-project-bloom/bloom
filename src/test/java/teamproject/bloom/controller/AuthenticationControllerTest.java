@@ -67,7 +67,7 @@ public class AuthenticationControllerTest {
     @DisplayName("Verify method register with correct data. User isn`t exists")
     public void register_CorrectDataUserNonExists_ReturnDto() throws Exception {
         String token = BEARER + "fx34.cf3f3.c3fx3c";
-        User user = user(1L);
+        User user = user(1L, "userName");
         UserLoginResponseDto expected = mapTokenToUserLoginResponseDto(token);
 
         when(userMapper.createUser(anyString())).thenReturn(user);
@@ -90,7 +90,7 @@ public class AuthenticationControllerTest {
     @Test
     @DisplayName("Verify method register with correct data. User is exists")
     public void register_CorrectDataUserIsExists_ReturnDto() throws Exception {
-        User user = user(1L);
+        User user = user(1L, "userName");
         Authentication authentication = authentication(user);
         SecurityContext context = SecurityContextHolder.createEmptyContext();
         context.setAuthentication(authentication);

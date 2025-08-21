@@ -20,14 +20,14 @@ public class WineTestUtil {
         Wine wine = new Wine();
         wine.setId(id);
         wine.setTitle(name);
-        wine.setPrice(BigDecimal.valueOf(123.12));
-        wine.setAlcohol(12.5f);
+        wine.setPrice(BigDecimal.valueOf(11.11));
+        wine.setAlcohol(1.10f);
         wine.setVariety(RED);
-        wine.setValue(ORGANIC);
-        wine.setVintage(2021);
+        wine.setValue(NON_ORGANIC);
+        wine.setVintage(2024);
         wine.setGrape(createGrape(1L, "Grape1"));
         wine.setRegion(createRegion(1L, "Region1"));
-        wine.setDescription("Good wine!");
+        wine.setDescription("Good wine 1");
         return wine;
     }
 

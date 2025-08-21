@@ -12,10 +12,10 @@ import teamproject.bloom.model.User;
 import teamproject.bloom.model.Wine;
 
 public class UserTestUtil {
-    public static User user(Long id) {
+    public static User user(Long id, String userName) {
         User user = new User();
         user.setId(id);
-        user.setUserName("userName");
+        user.setUserName(userName);
         user.setFavorites(new HashSet<>());
         return user;
     }
