@@ -1,3 +1,10 @@
+# Bloom 🍷
+
+**Bloom** is a wine shop application where users can explore wines, search dynamically, add favorites,
+and add items to the shopping cart for future orders through a simple REST API.
+
+---
+
 ### How to Launch a Spring Boot Application with Maven or Docker Compose
 
 Before running the application, ensure the following tools are installed and available:
