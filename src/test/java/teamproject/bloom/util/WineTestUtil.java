@@ -83,7 +83,7 @@ public class WineTestUtil {
                 2.20f,
                 ORANGE,
                 VEGAN,
-                2020,
+                2022,
                 "Grape2",
                 "Region2",
                 "Good wine 2"
@@ -98,7 +98,7 @@ public class WineTestUtil {
                 1.10f,
                 RED,
                 NON_ORGANIC,
-                2024,
+                2020,
                 "Grape1",
                 "Region1",
                 "Good wine 1"
@@ -110,7 +110,7 @@ public class WineTestUtil {
                 2.20f,
                 ORANGE,
                 VEGAN,
-                2020,
+                2022,
                 "Grape2",
                 "Region2",
                 "Good wine 2"
@@ -122,7 +122,7 @@ public class WineTestUtil {
                 3.30f,
                 ROSE,
                 ORGANIC,
-                2021,
+                2024,
                 "Grape3",
                 "Region3",
                 "Good wine 3"
