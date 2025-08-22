@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-wines
+      author: Anton Star
+      context: prod
+      changes:
+        - loadData:
+            file: db/data/wines.csv
+            separator: ","
+            tableName: wines

@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-favorite_items-table
+      author: Anton Star
+      changes:
+        - createTable:
+            tableName: favorite_items
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: wine_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - addForeignKeyConstraint:
+                  baseTableName: favorite_items
+                  constraintName: fk_favorite_items_user
+                  referencedTableName: users
+                  baseColumnNames: user_id
+                  referencedColumnNames: id
+              - addForeignKeyConstraint:
+                  baseTableName: favorite_items
+                  constraintName: fk_favorite_items_wine
+                  referencedTableName: wines
+                  baseColumnNames: wine_id
+                  referencedColumnNames: id

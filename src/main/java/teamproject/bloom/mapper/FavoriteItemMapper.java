@@ -1,0 +1,28 @@
+package teamproject.bloom.mapper;
+
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import teamproject.bloom.config.MapperConfig;
+import teamproject.bloom.dto.favoriteitem.FavoriteItemResponseDto;
+import teamproject.bloom.model.FavoriteItem;
+import teamproject.bloom.model.User;
+import teamproject.bloom.model.Wine;
+
+@Mapper(config = MapperConfig.class, uses = WineMapper.class)
+public interface FavoriteItemMapper {
+    @Mapping(target = "user", source = "user")
+    @Mapping(target = "wine", source = "wine")
+    @Mapping(target = "id", ignore = true)
+    FavoriteItem toModel(User user, Wine wine);
+
+    @Mapping(target = "userId", source = "user.id")
+    @Mapping(target = "wineId", source = "wine.id")
+    @Mapping(target = "title", source = "wine.title")
+    @Mapping(target = "price", source = "wine.price")
+    @Mapping(target = "variety", source = "wine.variety")
+    @Mapping(target = "value", source = "wine.value")
+    @Mapping(target = "region", source = "wine.region", qualifiedByName = "regionByName")
+    @Mapping(target = "grape", source = "wine.grape", qualifiedByName = "grapeByName")
+    FavoriteItemResponseDto toResponseDto(FavoriteItem favoriteItem);
+
+}

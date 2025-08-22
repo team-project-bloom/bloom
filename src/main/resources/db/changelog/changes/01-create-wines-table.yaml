@@ -1,0 +1,72 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-wines-table
+      author: Anton Star
+      changes:
+        - createTable:
+            tableName: wines
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price
+                  type: decimal(10,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: alcohol
+                  type: FLOAT(4,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: variety
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: value
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: vintage
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: grape_id
+                  type: bigint
+              - column:
+                  name: region_id
+                  type: bigint
+              - column:
+                  name: description
+                  type: varchar(3000)
+              - column:
+                  name: is_deleted
+                  type: bit
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+              - addForeignKeyConstraint:
+                  baseTableName: wines
+                  constraintName: fk_wines_grape
+                  referencedTableName: grapes
+                  baseColumnNames: grape_id
+                  referencedColumnNames: id
+              - addForeignKeyConstraint:
+                  baseTableName: wines
+                  constraintName: fk_wines_region
+                  referencedTableName: regions
+                  baseColumnNames: region_id
+                  referencedColumnNames: id
