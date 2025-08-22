@@ -47,9 +47,9 @@ import teamproject.bloom.model.Wine;
         "classpath:db/user/add-user-to-users-table.sql",
         "classpath:db/shoppingcart/add-shopping_carts-to-shopping_carts-table.sql"},
         executionPhase = Sql.ExecutionPhase.BEFORE_TEST_CLASS)
-@Sql(scripts = {"classpath:db/grape/delete-grapes-from-grapes-table.sql",
+@Sql(scripts = {"classpath:db/wine/delete-wines-from-wines-table.sql",
+        "classpath:db/grape/delete-grapes-from-grapes-table.sql",
         "classpath:db/region/delete-regions-from-regions.sql",
-        "classpath:db/wine/delete-wines-from-wines-table.sql",
         "classpath:db/user/delete-user-from-users-table.sql",
         "classpath:db/shoppingcart/delete-shopping_carts-from-shopping_carts-table.sql"},
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_CLASS)
