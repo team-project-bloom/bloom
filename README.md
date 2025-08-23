@@ -42,14 +42,14 @@ Before running the project, create .env a file in the root directory with the re
 *Example:*
 ```
 
-JWT_SECRET=your_data 
-MYSQLDB_USER=your_data
-MYSQLDB_ROOT_PASSWORD=your_data
-MYSQLDB_DATABASE=your_data
-MYSQLDB_LOCAL_PORT=your_data
-MYSQLDB_DOCKER_PORT=your_data
+POSTGRES_DATABASE=your_data
+POSTGRES_USER=your_data
+POSTGRES_PASSWORD=your_data
+POSTGRES_LOCAL_PORT=your_data
+POSTGRES_DOCKER_PORT=your_data
 SPRING_LOCAL_PORT=your_data
 SPRING_DOCKER_PORT=your_data
+JWT_SECRET=your_data
 DEBUG_PORT=your_data
 ```
 
@@ -77,6 +77,14 @@ Verify the Application is Running
 Started BloomApplication in X.XXX seconds (process running for X.XXX)
 ```
 
+---
+
 #### Use Swagger 
 
 [http://localhost:8080/api/swagger-ui/index.html](http://localhost:8080/api/swagger-ui/index.html)
+
+---
+
+### Scheme DB
+
+![Scheme DB](SchemeBloom.png)
