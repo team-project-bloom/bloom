@@ -43,12 +43,10 @@ import teamproject.bloom.model.User;
 import teamproject.bloom.model.Wine;
 
 @Sql(scripts = {"classpath:db/grape/add-grapes-to-grapes-table.sql",
-        "classpath:db/region/add-regions-to-regions-table.sql",
-        "classpath:db/wine/add-wines-to-wines-table.sql"},
+        "classpath:db/region/add-regions-to-regions-table.sql"},
         executionPhase = Sql.ExecutionPhase.BEFORE_TEST_CLASS)
 @Sql(scripts = {"classpath:db/grape/delete-grapes-from-grapes-table.sql",
-        "classpath:db/region/delete-regions-from-regions.sql",
-        "classpath:db/wine/delete-wines-from-wines-table.sql"},
+        "classpath:db/region/delete-regions-from-regions.sql"},
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_CLASS)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -69,14 +67,17 @@ public class FavoriteItemControllerTest {
 
     @Test
     @DisplayName("Verify method addFavoriteItem with correct data")
-    @Sql(scripts = {"classpath:db/user/add-user-to-users-table.sql"},
+    @Sql(scripts = {"classpath:db/user/add-user-to-users-table.sql",
+            "classpath:db/wine/add-wines-to-wines-table.sql"},
             executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(scripts = {"classpath:db/favoriteitem/delete-favorite_items-from-favorite_items-table.sql",
-            "classpath:db/user/delete-user-from-users-table.sql"},
+    @Sql(scripts =
+            {"classpath:db/favoriteitem/delete-favorite_items-from-favorite_items-table.sql",
+                    "classpath:db/wine/delete-wines-from-wines-table.sql",
+                    "classpath:db/user/delete-user-from-users-table.sql"},
             executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     public void addFavoriteItem_CorrectData_ReturnDto() throws Exception {
         Wine wine = wine(1L, "Wine1");
-        User user = user(1L, "userName");
+        User user = user(1L, "UserName");
         FavoriteItem favoriteItem = favoriteItem(1L, wine, user);
         FavoriteWineRequestDto favoriteWineRequestDto = favoriteWineRequestDto(wine.getId());
         String jsonRequest = objectMapper.writeValueAsString(favoriteWineRequestDto);
@@ -118,9 +119,11 @@ public class FavoriteItemControllerTest {
 
     @Test
     @DisplayName("Verify method addFavoriteItem with incorrect data. The wine isn`t exist")
-    @Sql(scripts = {"classpath:db/user/add-user-to-users-table.sql"},
+    @Sql(scripts = {"classpath:db/user/add-user-to-users-table.sql",
+            "classpath:db/wine/add-wines-to-wines-table.sql"},
             executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(scripts = {"classpath:db/user/delete-user-from-users-table.sql"},
+    @Sql(scripts = {"classpath:db/wine/delete-wines-from-wines-table.sql",
+            "classpath:db/user/delete-user-from-users-table.sql"},
             executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     public void addFavoriteItem_IncorrectDataWineNoExist_ReturnStatus() throws Exception {
         Wine wine = wine(15L, "Wine1");
@@ -142,10 +145,12 @@ public class FavoriteItemControllerTest {
     @Test
     @DisplayName("Verify method addFavoriteItem with incorrect data. The item is exist")
     @Sql(scripts = {"classpath:db/user/add-user-to-users-table.sql",
-            "classpath:db/favoriteitem/add-favorite_items-to-favorite_items-table.sql"},
+            "classpath:db/wine/add-wines-to-wines-table.sql"},
             executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(scripts = {"classpath:db/user/delete-user-from-users-table.sql",
-            "classpath:db/favoriteitem/delete-favorite_items-from-favorite_items-table.sql"},
+    @Sql(scripts =
+            {"classpath:db/favoriteitem/delete-favorite_items-from-favorite_items-table.sql",
+                    "classpath:db/wine/delete-wines-from-wines-table.sql",
+                    "classpath:db/user/delete-user-from-users-table.sql"},
             executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     public void addFavoriteItem_IncorrectDataItemIsExist_ReturnStatus() throws Exception {
         Wine wine = wine(1L, "Wine1");
@@ -167,13 +172,16 @@ public class FavoriteItemControllerTest {
     @Test
     @DisplayName("Verify method getAllUserFavoriteItems with correct data")
     @Sql(scripts = {"classpath:db/user/add-user-to-users-table.sql",
+            "classpath:db/wine/add-wines-to-wines-table.sql",
             "classpath:db/favoriteitem/add-favorite_items-to-favorite_items-table.sql"},
             executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(scripts = {"classpath:db/user/delete-user-from-users-table.sql",
-            "classpath:db/favoriteitem/delete-favorite_items-from-favorite_items-table.sql"},
+    @Sql(scripts =
+            {"classpath:db/favoriteitem/delete-favorite_items-from-favorite_items-table.sql",
+                    "classpath:db/wine/delete-wines-from-wines-table.sql",
+                    "classpath:db/user/delete-user-from-users-table.sql"},
             executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     public void getAllUserFavoriteItems_CorrectDataItemIsExist_ReturnDto() throws Exception {
-        User user = user(1L, "userName");
+        User user = user(1L, "UserName");
         Authentication authentication = authentication(user);
         SecurityContext context = SecurityContextHolder.createEmptyContext();
         context.setAuthentication(authentication);
@@ -214,13 +222,16 @@ public class FavoriteItemControllerTest {
     @Test
     @DisplayName("Verify method delete with correct data")
     @Sql(scripts = {"classpath:db/user/add-user-to-users-table.sql",
+            "classpath:db/wine/add-wines-to-wines-table.sql",
             "classpath:db/favoriteitem/add-favorite_items-to-favorite_items-table.sql"},
             executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(scripts = {"classpath:db/user/delete-user-from-users-table.sql",
-            "classpath:db/favoriteitem/delete-favorite_items-from-favorite_items-table.sql"},
+    @Sql(scripts =
+            {"classpath:db/favoriteitem/delete-favorite_items-from-favorite_items-table.sql",
+                    "classpath:db/wine/delete-wines-from-wines-table.sql",
+                    "classpath:db/user/delete-user-from-users-table.sql"},
             executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     public void delete_CorrectData_ReturnStatus() throws Exception {
-        User user = user(1L, "userName");
+        User user = user(1L, "UserName");
         Authentication authentication = authentication(user);
         SecurityContext context = SecurityContextHolder.createEmptyContext();
         context.setAuthentication(authentication);
@@ -249,10 +260,12 @@ public class FavoriteItemControllerTest {
     @Test
     @DisplayName("Verify method delete with incorrect data. The user isn`t owner the item")
     @Sql(scripts = {"classpath:db/user/add-user-to-users-table.sql",
-            "classpath:db/favoriteitem/add-favorite_items-to-favorite_items-table.sql"},
+            "classpath:db/wine/add-wines-to-wines-table.sql"},
             executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(scripts = {"classpath:db/user/delete-user-from-users-table.sql",
-            "classpath:db/favoriteitem/delete-favorite_items-from-favorite_items-table.sql"},
+    @Sql(scripts =
+            {"classpath:db/favoriteitem/delete-favorite_items-from-favorite_items-table.sql",
+                    "classpath:db/wine/delete-wines-from-wines-table.sql",
+                    "classpath:db/user/delete-user-from-users-table.sql"},
             executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     public void delete_IncorrectData_ReturnStatus() throws Exception {
         User user = user(2L, "userName2");

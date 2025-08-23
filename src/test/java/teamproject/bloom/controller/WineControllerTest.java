@@ -31,9 +31,9 @@ import teamproject.bloom.dto.wine.WineResponseDto;
         "classpath:db/region/add-regions-to-regions-table.sql",
         "classpath:db/wine/add-wines-to-wines-table.sql"},
         executionPhase = Sql.ExecutionPhase.BEFORE_TEST_CLASS)
-@Sql(scripts = {"classpath:db/grape/delete-grapes-from-grapes-table.sql",
-        "classpath:db/region/delete-regions-from-regions.sql",
-        "classpath:db/wine/delete-wines-from-wines-table.sql"},
+@Sql(scripts = {"classpath:db/wine/delete-wines-from-wines-table.sql",
+        "classpath:db/grape/delete-grapes-from-grapes-table.sql",
+        "classpath:db/region/delete-regions-from-regions.sql"},
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_CLASS)
 public class WineControllerTest {
     protected static MockMvc mockMvc;

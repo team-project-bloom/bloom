@@ -1,2 +1,2 @@
 DELETE FROM cart_items;
-ALTER TABLE cart_items AUTO_INCREMENT = 1;
+ALTER SEQUENCE cart_items_id_seq RESTART WITH 1;

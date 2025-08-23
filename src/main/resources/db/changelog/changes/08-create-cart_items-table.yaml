@@ -8,19 +8,18 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: bigint
-                  autoIncrement: true
+                  type: BIGSERIAL
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
                   name: shopping_cart_id
-                  type: bigint
+                  type: BIGSERIAL
                   constraints:
                     nullable: false
               - column:
                   name: wine_id
-                  type: bigint
+                  type: BIGSERIAL
                   constraints:
                     nullable: false
               - column:

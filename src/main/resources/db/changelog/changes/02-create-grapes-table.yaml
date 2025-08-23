@@ -1,21 +1,19 @@
 databaseChangeLog:
   - changeSet:
-      id: create-users-table
+      id: 04-create-grapes-table
       author: Anton Star
       changes:
         - createTable:
-            tableName: users
+            tableName: grapes
             columns:
               - column:
                   name: id
-                  type: bigint
-                  autoIncrement: true
+                  type: BIGSERIAL
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: user_name
-                  type: varchar(72)
+                  name: name
+                  type: varchar(255)
                   constraints:
                     nullable: false
-                    unique: true

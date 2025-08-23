@@ -8,8 +8,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: bigint
-                  autoIncrement: true
+                  type: BIGSERIAL
                   constraints:
                     primaryKey: true
                     nullable: false
@@ -25,7 +24,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: alcohol
-                  type: FLOAT(4,2)
+                  type: FLOAT(2)
                   constraints:
                     nullable: false
               - column:
@@ -54,19 +53,19 @@ databaseChangeLog:
                   type: varchar(3000)
               - column:
                   name: is_deleted
-                  type: bit
+                  type: BOOLEAN
                   defaultValueBoolean: false
                   constraints:
                     nullable: false
-              - addForeignKeyConstraint:
-                  baseTableName: wines
-                  constraintName: fk_wines_grape
-                  referencedTableName: grapes
-                  baseColumnNames: grape_id
-                  referencedColumnNames: id
-              - addForeignKeyConstraint:
-                  baseTableName: wines
-                  constraintName: fk_wines_region
-                  referencedTableName: regions
-                  baseColumnNames: region_id
-                  referencedColumnNames: id
+        - addForeignKeyConstraint:
+            baseTableName: wines
+            constraintName: fk_wines_grape
+            referencedTableName: grapes
+            baseColumnNames: grape_id
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            baseTableName: wines
+            constraintName: fk_wines_region
+            referencedTableName: regions
+            baseColumnNames: region_id
+            referencedColumnNames: id
