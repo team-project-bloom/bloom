@@ -48,7 +48,7 @@ public class FavoriteItemController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("{favoriteItemId}")
+    @DeleteMapping("/{favoriteItemId}")
     @Operation(summary = "Delete favorite item",
             description = "Delete the favorite item from the user")
     public void delete(@PathVariable Long favoriteItemId, Authentication authentication) {
